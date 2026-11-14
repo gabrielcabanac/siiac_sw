@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arquitectura Real y Diagrama Lógico de Integración — SIIAC (GCP)</title>
+  <title>Arquitectura Integral del Sistema SIIAC — Google Cloud Platform & ETL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
@@ -18,10 +18,10 @@
       align-items: center;
     }
 
-    /* Barra Superior de Control */
+    /* Barra Superior */
     .toolbar {
       width: 100%;
-      max-width: 1340px;
+      max-width: 1400px;
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
@@ -31,11 +31,6 @@
       border-radius: 12px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
       border: 1px solid #cbd5e1;
-    }
-    .toolbar-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
     }
     .badge-gcp-pill {
       background: #e8f0fe;
@@ -48,29 +43,6 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-    }
-    .view-switch {
-      display: flex;
-      background: #f1f5f9;
-      padding: 3px;
-      border-radius: 8px;
-      border: 1px solid #cbd5e1;
-    }
-    .tab-btn {
-      padding: 7px 15px;
-      font-size: 12.5px;
-      font-weight: 700;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: transparent;
-      color: #64748b;
-      transition: all 0.2s;
-    }
-    .tab-btn.active {
-      background: #ffffff;
-      color: #0f172a;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
     }
     .btn-action {
       background: #1a73e8;
@@ -107,13 +79,13 @@
     }
     .btn-secondary:hover { background: #e2e8f0; }
 
-    /* Lienzo de Arquitectura Fondo Blanco */
+    /* Lienzo de Arquitectura */
     .blueprint-canvas {
       width: 100%;
-      max-width: 1340px;
+      max-width: 1400px;
       background: #ffffff;
       border-radius: 16px;
-      padding: 36px 40px;
+      padding: 34px 38px;
       box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
       border: 1.5px solid #cbd5e1;
       position: relative;
@@ -126,10 +98,10 @@
       align-items: center;
       padding-bottom: 20px;
       border-bottom: 2.5px solid #1a73e8;
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
     .bp-title h1 {
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 900;
       color: #0f172a;
       letter-spacing: -0.02em;
@@ -142,11 +114,11 @@
       color: white;
       padding: 3px 12px;
       border-radius: 6px;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
     }
     .bp-title p {
-      font-size: 13px;
+      font-size: 12.5px;
       color: #64748b;
       margin-top: 4px;
       font-weight: 600;
@@ -162,199 +134,156 @@
       font-size: 12px;
     }
 
-    /* VISTAS */
-    .view-content { display: none; }
-    .view-content.active { display: block; }
-
-    /* ========================================================================== */
-    /* VISTA 1: DIAGRAMA LÓGICO DETALLADO DE FLUJO Y PIPELINE DE DATOS            */
-    /* ========================================================================== */
-    .pipeline-grid {
-      display: grid;
-      grid-template-columns: 240px 240px 270px 260px 250px;
-      gap: 16px;
-      align-items: stretch;
-    }
-    .pipeline-stage {
-      background: #f8fafc;
+    /* SECCIÓN 1: INFRAESTRUCTURA REAL EN GOOGLE CLOUD */
+    .section-box {
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
-      padding: 16px 14px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      background: #fbfcfe;
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #1a73e8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .gcp-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .gcp-service-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .service-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .icon-blue { background: #e0f2fe; color: #0369a1; }
+    .icon-green { background: #dcfce7; color: #15803d; }
+    .icon-purple { background: #ede9fe; color: #6b21a8; }
+    .icon-amber { background: #fef3c7; color: #b45309; }
+
+    .gcp-service-info h5 {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+    }
+    .gcp-service-info p {
+      font-size: 10px;
+      color: #64748b;
+      margin-top: 3px;
+      line-height: 1.3;
+    }
+    .service-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    /* SECCIÓN 2: PIPELINE ETL Y MOTOR DE INTEGRACIÓN MULTI-FUENTE */
+    .etl-pipeline-grid {
+      display: grid;
+      grid-template-columns: 240px 240px 270px 270px 260px;
+      gap: 14px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    .pipeline-col {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      position: relative;
+      gap: 10px;
     }
-    .pipeline-stage.highlight {
+    .pipeline-col.highlight-green {
       background: #f0fdf4;
       border-color: #10b981;
-      box-shadow: 0 4px 12px rgba(16,185,129,0.08);
     }
-    .pipeline-stage.highlight-blue {
+    .pipeline-col.highlight-blue {
       background: #eff6ff;
       border-color: #3b82f6;
-      box-shadow: 0 4px 12px rgba(59,130,246,0.08);
     }
-    .stage-header {
-      font-size: 12px;
+    .col-header {
+      font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: #0f172a;
       border-bottom: 1.5px solid #e2e8f0;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .stage-card {
+    .item-card {
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 10px 12px;
+      border-radius: 6px;
+      padding: 8px 10px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      gap: 2px;
     }
-    .stage-card-title {
-      font-size: 12px;
+    .item-title {
+      font-size: 11.5px;
       font-weight: 800;
       color: #1e293b;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .stage-card-desc {
-      font-size: 10.5px;
+    .item-desc {
+      font-size: 10px;
       color: #64748b;
-      line-height: 1.35;
-    }
-    .stage-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 4px;
-      display: inline-block;
-      margin-top: 4px;
-      align-self: flex-start;
-    }
-    .pill-blue { background: #dbeafe; color: #1e40af; }
-    .pill-purple { background: #ede9fe; color: #6b21a8; }
-    .pill-green { background: #dcfce7; color: #166534; }
-    .pill-amber { background: #fef3c7; color: #92400e; }
-    .pill-rose { background: #ffe4e6; color: #9f1239; }
-
-    /* Flechas entre fases */
-    .flow-connector {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      color: #94a3b8;
-      font-weight: 900;
+      line-height: 1.3;
     }
 
-    /* Caja de Vista SQL (Fórmula Contable) */
-    .sql-formula-box {
-      margin-top: 20px;
+    /* Fila Inferior con Fórmula Contable y Solución al Producto Cartesiano */
+    .formula-banner {
       background: #0f172a;
       color: #e2e8f0;
       border-radius: 10px;
-      padding: 16px 20px;
+      padding: 14px 20px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* ========================================================================== */
-    /* VISTA 2: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN SERVICIOS INVENTADOS)  */
-    /* ========================================================================== */
-    .cloud-grid {
-      display: grid;
-      grid-template-columns: 860px 400px;
-      gap: 24px;
-    }
-    .gcp-real-box {
-      border: 2px solid #1a73e8;
-      border-radius: 14px;
-      background: #fafcfe;
-      padding: 22px;
-    }
-    .gcp-real-header {
-      font-size: 14.5px;
-      font-weight: 800;
-      color: #1a73e8;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1.5px solid #dbeafe;
-    }
-    .real-tier {
-      background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
-    }
-    .real-tier:last-child { margin-bottom: 0; }
-    .tier-label {
       font-size: 11.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #475569;
-      margin-bottom: 10px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 6px;
-    }
-    .tier-cards-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-    .real-card {
-      background: #f8fafc;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 10px 12px;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .real-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-      background: #e0f2fe;
+      border: 1.5px solid #334155;
     }
 
-    /* Fuentes On-Premise reales */
-    .onprem-real-box {
-      border: 2px solid #64748b;
-      border-radius: 14px;
-      background: #f8fafc;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    /* Footer Institucional */
+    /* Pie de página */
     .bp-footer {
-      margin-top: 24px;
-      padding-top: 16px;
+      margin-top: 22px;
+      padding-top: 14px;
       border-top: 1.5px solid #cbd5e1;
       display: flex;
       justify-content: space-between;
@@ -366,8 +295,8 @@
       font-weight: 800;
       color: #0f172a;
       background: #e2e8f0;
-      padding: 4px 10px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 5px;
     }
 
     @media print {
@@ -380,394 +309,271 @@
 </head>
 <body>
 
-  <!-- BARRA DE CONTROL -->
+  <!-- BARRA DE ACCIÓN -->
   <div class="toolbar">
-    <div class="toolbar-left">
+    <div style="display: flex; align-items: center; gap: 12px;">
       <span class="badge-gcp-pill">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z" fill="#1a73e8"/>
         </svg>
-        Arquitectura Oficial de Integración y GCP
+        Arquitectura Integral del Sistema SIIAC: Nube Google Cloud & Pipeline ETL
       </span>
-      <div class="view-switch">
-        <button class="tab-btn active" onclick="switchView('logico')">1. Diagrama Lógico de Datos (Detalle Exhaustivo)</button>
-        <button class="tab-btn" onclick="switchView('gcp')">2. Infraestructura Real en Google Cloud</button>
-      </div>
+      <span style="font-size: 12.5px; color: #64748b;">Todo visible en una sola lámina oficial para el docente</span>
     </div>
     <div style="display: flex; gap: 10px;">
-      <a href="/" class="btn-secondary">⬅️ Ir a la Aplicación</a>
-      <button onclick="downloadAsImage()" class="btn-action">⬇️ Exportar PNG Alta Resolución (Retina 4K)</button>
+      <a href="/casos_de_uso_pdf.html" class="btn-secondary">📄 Ver Casos de Uso (PDF)</a>
+      <button onclick="downloadAsImage()" class="btn-action">⬇️ Exportar Imagen PNG (Retina 4K)</button>
     </div>
   </div>
 
-  <!-- LIENZO DE ARQUITECTURA -->
+  <!-- LIENZO PRINCIPAL -->
   <div class="blueprint-canvas" id="blueprintCanvas">
 
-    <!-- CABECERA -->
+    <!-- CABECERA DE ARQUITECTURA -->
     <div class="bp-header">
       <div class="bp-title">
         <h1>
-          Arquitectura del Sistema <span class="tag-cloud">SIIAC</span>
+          Arquitectura Integral del Sistema <span class="tag-cloud">SIIAC</span>
         </h1>
-        <p>Integración Multi-Fuente • Capa Staging • Motor ETL Idempotente (SHA-256) • Google Cloud Platform</p>
+        <p>Integración de 5 Fuentes Silo • Capa Staging • Motor ETL Idempotente (SHA-256) • Google Cloud Platform</p>
       </div>
       <div class="bp-meta">
-        <div class="status-live">🟢 100% OPERATIVO EN VIVO</div>
+        <div class="status-live">🟢 PRODUCCIÓN EN GOOGLE CLOUD</div>
         <div style="color: #475569; margin-top: 2px;">siiac-gabrielcabana-7144a.web.app</div>
       </div>
     </div>
 
-    <!-- ==================================================================== -->
-    <!-- VISTA 1: DIAGRAMA LÓGICO DE DATOS (DETALLE TÉCNICO EXHAUSTIVO)      -->
-    <!-- ==================================================================== -->
-    <div id="viewLogico" class="view-content active">
-
-      <div class="pipeline-grid">
-
-        <!-- ETAPA 1: 5 FUENTES HETEROGÉNEAS -->
-        <div class="pipeline-stage">
-          <div class="stage-header">
-            🏢 1. Fuentes Heterogéneas
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">🚗 Área 1: Tránsito</div>
-            <div class="stage-card-desc">Infracciones de transporte digitadas en sistema legado PHP.</div>
-            <span class="stage-pill pill-blue">MySQL • legacy_papeletas</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">🏢 Área 2: Fiscalización</div>
-            <div class="stage-card-desc">Sanciones administrativas comerciales y obras (RSA).</div>
-            <span class="stage-pill pill-purple">PostgreSQL • legacy_fiscalizacion</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">💳 Área 3: Recaudación</div>
-            <div class="stage-card-desc">Recibos de pagos en caja ventanilla central en C#.</div>
-            <span class="stage-pill pill-green">SQL Server • legacy_recaudacion</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">📄 Inspectores en Campo</div>
-            <div class="stage-card-desc">Infracciones físicas en calle no sincronizadas en BD.</div>
-            <span class="stage-pill pill-amber">papeletas_campo_inspectores.xlsx</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">🏦 Bancos & Coactiva</div>
-            <div class="stage-card-desc">Abonos BCP/BN y mora coactiva liquidada en Excel.</div>
-            <span class="stage-pill pill-amber">recaudacion_bancos_externos.xlsx</span>
-          </div>
-        </div>
-
-        <!-- ETAPA 2: STAGING RAW Y ATERRIZAJE -->
-        <div class="pipeline-stage">
-          <div class="stage-header">
-            📥 2. Capa Staging (Raw)
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Aterrizaje Desacoplado</div>
-            <div class="stage-card-desc">Ingesta a tablas temporales raw sin transformar para no saturar memoria.</div>
-            <span class="stage-pill pill-blue">infracciones_raw</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Transacciones Externas</div>
-            <div class="stage-card-desc">Abonos de bancos y liquidaciones coactivas previas a verificación.</div>
-            <span class="stage-pill pill-green">transacciones_raw</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Alta Velocidad de Inserción</div>
-            <div class="stage-card-desc">Carga por lotes con <code>COPY FROM STDIN</code> (hasta 16,000 filas/segundo).</div>
-            <span class="stage-pill pill-purple">Socket Buffer Streaming</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Protección Transaccional</div>
-            <div class="stage-card-desc">Aislamiento total: el Staging no altera las tablas públicas de producción.</div>
-            <span class="stage-pill pill-blue">Esquema staging.*</span>
-          </div>
-        </div>
-
-        <!-- ETAPA 3: CALIDAD Y CUARENTENA (REJECT BUCKET) -->
-        <div class="pipeline-stage highlight">
-          <div class="stage-header" style="color: #065f46;">
-            🛡️ 3. Calidad & Cuarentena
-          </div>
-
-          <div class="stage-card" style="border-color: #bbf7d0;">
-            <div class="stage-card-title" style="color: #047857;">Reglas de Negocio Tipificadas</div>
-            <div class="stage-card-desc">
-              • Importe &gt; S/ 0 (No negativo)<br>
-              • Formato de fecha válido<br>
-              • Existencia de DNI/Papeleta
-            </div>
-            <span class="stage-pill pill-green">Validación fila por fila</span>
-          </div>
-
-          <div class="stage-card" style="background: #fff1f2; border-color: #fecdd3;">
-            <div class="stage-card-title" style="color: #9f1239;">Aislamiento en Cuarentena</div>
-            <div class="stage-card-desc" style="color: #be123c;">
-              <strong>Cero ROLLBACK destructivo:</strong> Las filas corruptas no cancelan el lote. Se aíslan con su motivo.
-            </div>
-            <span class="stage-pill pill-rose">staging.import_errors</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Códigos de Discrepancia</div>
-            <div class="stage-card-desc">
-              <code>INVALID_AMOUNT</code>, <code>MISSING_TICKET</code>, <code>INVALID_DATE</code>, <code>TICKET_NOT_FOUND</code>.
-            </div>
-            <span class="stage-pill pill-amber">Reporte CSV descargable</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Tasa de Aprobación</div>
-            <div class="stage-card-desc">10 filas conformes aprobadas ➔ 4 filas corruptas en cuarentena.</div>
-            <span class="stage-pill pill-green">Resiliencia Operativa</span>
-          </div>
-        </div>
-
-        <!-- ETAPA 4: DEDUPLICACIÓN SHA-256 Y CORE 3NF -->
-        <div class="pipeline-stage highlight-blue">
-          <div class="stage-header" style="color: #1d4ed8;">
-            🔐 4. Deduplicación & Core 3NF
-          </div>
-
-          <div class="stage-card" style="border-color: #bfdbfe;">
-            <div class="stage-card-title" style="color: #1e40af;">Hashing Criptográfico SHA-256</div>
-            <div class="stage-card-desc">
-              Hash de contenido CDC para cada registro. Reprocesar el lote produce <strong>0 duplicados</strong>.
-            </div>
-            <span class="stage-pill pill-blue">Idempotencia Garantizada</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Padrón Unificado</div>
-            <div class="stage-card-desc">Ciudadanos identificados unívocamente por DNI o RUC.</div>
-            <span class="stage-pill pill-green">public.citizens</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Sanciones Consolidadas</div>
-            <div class="stage-card-desc">Infracciones de Tránsito y Fiscalización Urbana (RSA).</div>
-            <span class="stage-pill pill-blue">public.tickets</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Pagos e Intereses Normalizados</div>
-            <div class="stage-card-desc">Abonos de caja/bancos y liquidaciones de mora coactiva.</div>
-            <span class="stage-pill pill-purple">public.payments / interest</span>
-          </div>
-        </div>
-
-        <!-- ETAPA 5: VISTA SQL CTE Y ATENCIÓN CIUDADANA -->
-        <div class="pipeline-stage">
-          <div class="stage-header">
-            🌐 5. Vista CTE & Consumo
-          </div>
-
-          <div class="stage-card" style="background: #eff6ff; border-color: #3b82f6;">
-            <div class="stage-card-title" style="color: #1d4ed8;">Solución al Producto Cartesiano</div>
-            <div class="stage-card-desc">
-              Agrupación separada en CTEs de pagos e intereses antes de cruzar con la papeleta.
-            </div>
-            <span class="stage-pill pill-blue">consolidated_tickets_view</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Atención al Ciudadano</div>
-            <div class="stage-card-desc">Búsqueda en vivo por DNI con auto-enlace desde la importación de Excel.</div>
-            <span class="stage-pill pill-green">/consulta?q=DNI</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Mesa de Partes en Vivo</div>
-            <div class="stage-card-desc">Digitación de Tránsito, Fiscalización y cobro en Ventanilla.</div>
-            <span class="stage-pill pill-purple">/operaciones</span>
-          </div>
-
-          <div class="stage-card">
-            <div class="stage-card-title">Auditoría Inmutable</div>
-            <div class="stage-card-desc">Trazabilidad de lotes con sello de tiempo y usuario firmado.</div>
-            <span class="stage-pill pill-blue">Gabriel Cabana (Admin)</span>
-          </div>
-        </div>
-
+    <!-- BLOQUE 1: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN SERVICIOS INVENTADOS) -->
+    <div class="section-box">
+      <div class="section-title">
+        <span>☁️ 1. Infraestructura Real Desplegada en Google Cloud Platform (ID: siiac-gabrielcabana-7144a | Región: us-central1)</span>
+        <span style="font-size: 11px; font-weight: 700; color: #059669;">Netamente lo utilizado en el proyecto</span>
       </div>
 
-      <!-- FÓRMULA MATEMÁTICA CONTABLE CTE -->
-      <div class="sql-formula-box">
-        <div>
-          <span style="color: #38bdf8; font-weight: 800;">LÓGICA SQL ANTI-PRODUCTO CARTESIANO (CTE):</span>  
-          <span>WITH CTE_Pagos AS (SUM(pagos)), CTE_Intereses AS (SUM(intereses)) ➔ Saldo = Base + Intereses - Pagos</span>
+      <div class="gcp-cards-grid">
+        <div class="gcp-service-card">
+          <div class="service-icon icon-blue">🌐</div>
+          <div class="gcp-service-info">
+            <h5>Google Cloud / Firebase Hosting</h5>
+            <p>Distribución perimetral global Anycast, certificado SSL TLS 1.3 automático y latencia &lt; 35ms.</p>
+            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">siiac-gabrielcabana-7144a.web.app</span>
+          </div>
         </div>
-        <div style="color: #4ade80;">
-          Caso DNI 45892104: S/ 350.00 + S/ 50.00 - S/ 250.00 = S/ 150.00 (AMORTIZADA)
+
+        <div class="gcp-service-card">
+          <div class="service-icon icon-purple">🐳</div>
+          <div class="gcp-service-info">
+            <h5>Docker Multi-Stage (Cloud Run Ready)</h5>
+            <p>Contenedor OCI Nginx Alpine en <strong>Puerto 8080</strong> y pipeline automatizado con <code>cloudbuild.yaml</code>.</p>
+            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">Dockerfile • Puerto 8080</span>
+          </div>
+        </div>
+
+        <div class="gcp-service-card">
+          <div class="service-icon icon-amber">🪣</div>
+          <div class="gcp-service-info">
+            <h5>Google Cloud Storage (GCS Buckets)</h5>
+            <p>Landing zone para archivos pesados de inspectores y bancos, desacoplando la RAM del servidor web.</p>
+            <span class="service-pill" style="background: #fef3c7; color: #b45309;">gs://siiac-landing / quarantine</span>
+          </div>
+        </div>
+
+        <div class="gcp-service-card">
+          <div class="service-icon icon-green">🗄️</div>
+          <div class="gcp-service-info">
+            <h5>PostgreSQL Relacional (Cloud SQL Ready)</h5>
+            <p>Modelo 3NF transaccional ACID, tablas raw desacopladas y vistas CTE que anulan el producto cartesiano.</p>
+            <span class="service-pill" style="background: #dcfce7; color: #15803d;">citizens, tickets, payments (3NF)</span>
+          </div>
         </div>
       </div>
-
     </div>
 
-    <!-- ==================================================================== -->
-    <!-- VISTA 2: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN ADORNOS NI INVENTOS) -->
-    <!-- ==================================================================== -->
-    <div id="viewGCP" class="view-content">
+    <!-- BLOQUE 2: PIPELINE ETL Y MOTOR DE INTEGRACIÓN MULTI-FUENTE (TODO VISIBLE) -->
+    <div class="section-box" style="background: #ffffff; border-color: #0284c7;">
+      <div class="section-title" style="color: #0284c7;">
+        <span>⚙️ 2. Motor ETL Transaccional y Flujo Lógico de Integración de Datos (End-to-End)</span>
+        <span style="font-size: 11px; font-weight: 700; color: #0284c7;">5 Fases de Transformación, Calidad y Deduplicación</span>
+      </div>
 
-      <div class="cloud-grid">
+      <div class="etl-pipeline-grid">
 
-        <!-- COLUMNA GOOGLE CLOUD PLATFORM REAL -->
-        <div class="gcp-real-box">
-          <div class="gcp-real-header">
-            <span>☁️ Google Cloud Platform — Proyecto Oficial: siiac-gabrielcabana-7144a (N° 643130825015)</span>
-            <span style="font-size: 11px; background: #e8f0fe; padding: 2px 8px; border-radius: 4px;">Región: us-central1</span>
+        <!-- FASE 1: FUENTES HETEROGÉNEAS -->
+        <div class="pipeline-col">
+          <div class="col-header">🏢 1. Fuentes Silo</div>
+
+          <div class="item-card">
+            <div class="item-title">🚗 Área 1: Tránsito</div>
+            <div class="item-desc">Infracciones de transporte en PHP/MySQL.</div>
+            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">legacy_papeletas</span>
           </div>
 
-          <!-- Capa 1: Frontend Edge -->
-          <div class="real-tier">
-            <div class="tier-label">1. Capa de Presentación Global Edge (GCP)</div>
-            <div class="tier-cards-row">
-              <div class="real-card">
-                <div class="real-icon">🌐</div>
-                <div>
-                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Google Cloud / Firebase Hosting</h5>
-                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
-                    Alojamiento perimetral con certificado SSL automático TLS 1.3 y entrega Anycast de latencia &lt; 35ms.
-                  </p>
-                  <span class="stage-pill pill-blue">https://siiac-gabrielcabana-7144a.web.app</span>
-                </div>
-              </div>
-
-              <div class="real-card">
-                <div class="real-icon">⚛️</div>
-                <div>
-                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">SPA React 18 + TypeScript + Vite</h5>
-                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
-                    Interfaz reactiva para operadores y ciudadanos, validaciones de tipo estricto en tiempo de compilación.
-                  </p>
-                  <span class="stage-pill pill-green">Build optimizado en dist/</span>
-                </div>
-              </div>
-            </div>
+          <div class="item-card">
+            <div class="item-title">🏢 Área 2: Fiscalización</div>
+            <div class="item-desc">Sanciones administrativas en Java/PostgreSQL.</div>
+            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">legacy_fiscalizacion (RSA)</span>
           </div>
 
-          <!-- Capa 2: Contenedor OCI Cloud Run Ready -->
-          <div class="real-tier">
-            <div class="tier-label">2. Contenerización y Despliegue Cloud Run Compatible</div>
-            <div class="tier-cards-row">
-              <div class="real-card">
-                <div class="real-icon">🐳</div>
-                <div>
-                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Docker Multi-Stage (Nginx Alpine)</h5>
-                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
-                    Contenedor OCI ligero (&lt; 25 MB) exponiendo el estándar exigido por Google Cloud Run en el <strong>Puerto 8080</strong>.
-                  </p>
-                  <span class="stage-pill pill-blue">Dockerfile / Port 8080</span>
-                </div>
-              </div>
-
-              <div class="real-card">
-                <div class="real-icon">🚀</div>
-                <div>
-                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Google Cloud Build Pipeline</h5>
-                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
-                    Pipeline de compilación automatizada y despliegue continuo desde repositorio Git hacia Cloud Run.
-                  </p>
-                  <span class="stage-pill pill-purple">cloudbuild.yaml</span>
-                </div>
-              </div>
-            </div>
+          <div class="item-card">
+            <div class="item-title">💳 Área 3: Recaudación</div>
+            <div class="item-desc">Recibos de caja ventanilla en C#/SQL Server.</div>
+            <span class="service-pill" style="background: #dcfce7; color: #15803d;">legacy_recaudacion</span>
           </div>
 
-          <!-- Capa 3: Ingesta Batch y Storage -->
-          <div class="real-tier">
-            <div class="tier-label">3. Almacenamiento e Ingesta Masiva (GCS & PostgreSQL)</div>
-            <div class="tier-cards-row">
-              <div class="real-card">
-                <div class="real-icon">🪣</div>
-                <div>
-                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Google Cloud Storage (GCS)</h5>
-                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
-                    Recepción directa de archivos pesados de inspectores y bancos, desacoplando la carga de la memoria RAM web.
-                  </p>
-                  <span class="stage-pill pill-amber">gs://siiac-landing / quarantine</span>
-                </div>
-              </div>
-
-              <div class="real-card">
-                <div class="real-icon">🗄️</div>
-                <div>
-                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Base de Datos PostgreSQL 15 Relacional</h5>
-                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
-                    Modelo 3NF transaccional ACID, Staging temporal y vista precomputada CTE que anula el producto cartesiano.
-                  </p>
-                  <span class="stage-pill pill-green">Cloud SQL / Supabase Ready</span>
-                </div>
-              </div>
-            </div>
+          <div class="item-card">
+            <div class="item-title">📄 Inspectores Campo</div>
+            <div class="item-desc">Infracciones físicas en calle no sincronizadas.</div>
+            <span class="service-pill" style="background: #fef3c7; color: #b45309;">papeletas_campo.xlsx</span>
           </div>
 
+          <div class="item-card">
+            <div class="item-title">🏦 Bancos & Coactiva</div>
+            <div class="item-desc">Abonos BCP/BN y liquidaciones coactivas.</div>
+            <span class="service-pill" style="background: #fef3c7; color: #b45309;">bancos_externos.xlsx</span>
+          </div>
         </div>
 
-        <!-- COLUMNA ON-PREMISE MUNICIPAL REAL -->
-        <div class="onprem-real-box">
-          <div style="font-size: 14.5px; font-weight: 800; color: #334155; padding-bottom: 8px; border-bottom: 1.5px solid #cbd5e1;">
-            🏛️ Silos Municipales On-Premise
+        <!-- FASE 2: CAPA STAGING RAW -->
+        <div class="pipeline-col">
+          <div class="col-header">📥 2. Capa Staging</div>
+
+          <div class="item-card">
+            <div class="item-title">Aterrizaje Desacoplado</div>
+            <div class="item-desc">Ingesta a tablas temporales raw para no saturar memoria.</div>
+            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">infracciones_raw</span>
           </div>
 
-          <div style="font-size: 11.5px; color: #64748b; line-height: 1.4;">
-            Fuentes de datos independientes que operaban aisladas y que el SIIAC consolida sin alterar sus bases legadas:
+          <div class="item-card">
+            <div class="item-title">Transacciones Externas</div>
+            <div class="item-desc">Abonos y cobranzas previas a conciliación.</div>
+            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">transacciones_raw</span>
           </div>
 
-          <div class="real-card" style="background: white;">
-            <div class="real-icon">🚗</div>
-            <div>
-              <h5 style="font-size: 11.5px; font-weight: 800;">Tránsito (PHP / MySQL)</h5>
-              <p style="font-size: 10px; color: #64748b;">legacy_papeletas.sgp_papeletas</p>
+          <div class="item-card">
+            <div class="item-title">Inserción Masiva Socket</div>
+            <div class="item-desc">Comando <code>COPY FROM STDIN</code> (hasta 16,000 filas/seg).</div>
+            <span class="service-pill" style="background: #f0fdf4; color: #15803d;">Buffer Streaming</span>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title">Aislamiento Seguro</div>
+            <div class="item-desc">No altera las tablas públicas de producción.</div>
+            <span class="service-pill" style="background: #f1f5f9; color: #475569;">Esquema staging.*</span>
+          </div>
+        </div>
+
+        <!-- FASE 3: CALIDAD Y CUARENTENA -->
+        <div class="pipeline-col highlight-green">
+          <div class="col-header" style="color: #065f46;">🛡️ 3. Calidad & Cuarentena</div>
+
+          <div class="item-card" style="border-color: #bbf7d0;">
+            <div class="item-title" style="color: #047857;">Reglas Tipificadas</div>
+            <div class="item-desc">
+              • Monto &gt; S/ 0 (No negativo)<br>
+              • Formato de fecha válido<br>
+              • Existencia de DNI/Ticket
             </div>
+            <span class="service-pill" style="background: #dcfce7; color: #15803d;">Validación Fila x Fila</span>
           </div>
 
-          <div class="real-card" style="background: white;">
-            <div class="real-icon">🏢</div>
-            <div>
-              <h5 style="font-size: 11.5px; font-weight: 800;">Fiscalización (Java / Postgres)</h5>
-              <p style="font-size: 10px; color: #64748b;">legacy_fiscalizacion.resoluciones (RSA)</p>
+          <div class="item-card" style="background: #fff1f2; border-color: #fecdd3;">
+            <div class="item-title" style="color: #9f1239;">Aislamiento (Reject)</div>
+            <div class="item-desc" style="color: #be123c;">
+              <strong>Cero ROLLBACK destructivo:</strong> Filas corruptas se aíslan sin abortar el lote válido.
             </div>
+            <span class="service-pill" style="background: #ffe4e6; color: #9f1239;">staging.import_errors</span>
           </div>
 
-          <div class="real-card" style="background: white;">
-            <div class="real-icon">💳</div>
-            <div>
-              <h5 style="font-size: 11.5px; font-weight: 800;">Recaudación (C# / SQL Server)</h5>
-              <p style="font-size: 10px; color: #64748b;">legacy_recaudacion.caja_pagos</p>
+          <div class="item-card">
+            <div class="item-title">Discrepancias</div>
+            <div class="item-desc">
+              <code>INVALID_AMOUNT</code>, <code>MISSING_TICKET</code>, <code>INVALID_DATE</code>.
             </div>
+            <span class="service-pill" style="background: #fef3c7; color: #b45309;">Reporte CSV</span>
           </div>
+        </div>
 
-          <div class="real-card" style="background: white;">
-            <div class="real-icon">📑</div>
-            <div>
-              <h5 style="font-size: 11.5px; font-weight: 800;">Excel de Inspectores y Bancos</h5>
-              <p style="font-size: 10px; color: #64748b;">papeletas_campo.xlsx / bancos_externos.xlsx</p>
+        <!-- FASE 4: DEDUPLICACIÓN SHA-256 Y CORE 3NF -->
+        <div class="pipeline-col highlight-blue">
+          <div class="col-header" style="color: #1d4ed8;">🔐 4. Deduplicación & 3NF</div>
+
+          <div class="item-card" style="border-color: #bfdbfe;">
+            <div class="item-title" style="color: #1e40af;">Hash SHA-256 CDC</div>
+            <div class="item-desc">
+              Hash de contenido único. Reprocesar el lote produce exactamente <strong>0 duplicados</strong>.
             </div>
+            <span class="service-pill" style="background: #dbeafe; color: #1e40af;">Idempotencia Total</span>
           </div>
 
-          <div style="background: #e2e8f0; padding: 10px; border-radius: 8px; font-size: 10.5px; color: #334155; text-align: center;">
-            <strong>Principio de Integración:</strong> Fuentes de solo lectura (Read-Only) que preservan la operación diaria de cada área.
+          <div class="item-card">
+            <div class="item-title">Padrón Unificado</div>
+            <div class="item-desc">Identidad del infractor por DNI / RUC.</div>
+            <span class="service-pill" style="background: #dcfce7; color: #15803d;">public.citizens</span>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title">Sanciones Consolidadas</div>
+            <div class="item-desc">Infracciones Tránsito y Fiscalización.</div>
+            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">public.tickets</span>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title">Pagos e Intereses</div>
+            <div class="item-desc">Caja ventanilla + Bancos + Mora coactiva.</div>
+            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">public.payments / interest</span>
+          </div>
+        </div>
+
+        <!-- FASE 5: VISTA SQL CTE Y CONSUMO -->
+        <div class="pipeline-col">
+          <div class="col-header">🌐 5. Vista CTE & Consumo</div>
+
+          <div class="item-card" style="background: #eff6ff; border-color: #3b82f6;">
+            <div class="item-title" style="color: #1d4ed8;">Anti-Producto Cartesiano</div>
+            <div class="item-desc">
+              Agrupación separada en CTEs de pagos e intereses antes del cruce con la infracción.
+            </div>
+            <span class="service-pill" style="background: #dbeafe; color: #1e40af;">consolidated_tickets_view</span>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title">Atención al Ciudadano</div>
+            <div class="item-desc">Búsqueda directa por DNI con auto-enlace.</div>
+            <span class="service-pill" style="background: #dcfce7; color: #15803d;">/consulta?q=DNI</span>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title">Mesa de Partes en Vivo</div>
+            <div class="item-desc">Digitación de Tránsito, RSA y cobro caja.</div>
+            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">/operaciones</span>
+          </div>
+
+          <div class="item-card">
+            <div class="item-title">Benchmark 500K Filas</div>
+            <div class="item-desc">Streams chunks 5K / RAM &lt; 60 MB.</div>
+            <span class="service-pill" style="background: #fef3c7; color: #b45309;">&gt;16,000 filas/seg</span>
           </div>
         </div>
 
       </div>
+    </div>
 
+    <!-- BANNER DE FÓRMULA MATEMÁTICA Y DEMOSTRACIÓN -->
+    <div class="formula-banner">
+      <div>
+        <span style="color: #38bdf8; font-weight: 800;">LÓGICA SQL ANTI-PRODUCTO CARTESIANO (CTE):</span>  
+        <span>WITH CTE_Pagos AS (SUM(pagos)), CTE_Intereses AS (SUM(intereses)) ➔ Saldo = Base + Intereses - Pagos</span>
+      </div>
+      <div style="color: #4ade80;">
+        Demostración DNI 45892104: S/ 350.00 + S/ 50.00 - S/ 250.00 = S/ 150.00 (AMORTIZADA)
+      </div>
     </div>
 
     <!-- PIE DE PÁGINA -->
     <div class="bp-footer">
       <div>
         <span>ARQUITECTO DE SOLUCIÓN:</span>
-        <span class="author-badge">GABRIEL CABANA</span>
+        <span class="author-badge">GABRIEL CABANA • ADMINISTRADOR GENERAL</span>
       </div>
       <div>
         <span style="font-weight: 700; color: #1a73e8;">SI806U • DESARROLLO ADAPTATIVO E INTEGRACIÓN DE SOFTWARE</span>
@@ -781,22 +587,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
-    function switchView(view) {
-      document.getElementById('viewLogico').classList.remove('active');
-      document.getElementById('viewGCP').classList.remove('active');
-      const buttons = document.querySelectorAll('.tab-btn');
-      buttons[0].classList.remove('active');
-      buttons[1].classList.remove('active');
-
-      if (view === 'logico') {
-        document.getElementById('viewLogico').classList.add('active');
-        buttons[0].classList.add('active');
-      } else {
-        document.getElementById('viewGCP').classList.add('active');
-        buttons[1].classList.add('active');
-      }
-    }
-
     function downloadAsImage() {
       const element = document.getElementById('blueprintCanvas');
       html2canvas(element, {
@@ -805,7 +595,7 @@
         useCORS: true
       }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'Arquitectura_Integracion_SIIAC_Gabriel_Cabana.png';
+        link.download = 'Arquitectura_Integral_SIIAC_GCP_ETL_Gabriel_Cabana.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
