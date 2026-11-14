@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Diagrama de Arquitectura SIIAC - Exportador Alta Resolución</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #10b981;
+    }
+    .btn-secondary {
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+    .btn-secondary:hover {
+      background: #334155;
+    }
+    .preview-container {
+      width: 100%;
+      max-width: 1200px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      border: 1px solid #334155;
+      background: #1e293b;
+    }
+    img {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 style="margin: 0 0 6px 0;">Diagrama de Arquitectura — SIIAC (SI806U)</h1>
+    <p style="margin: 0; color: #94a3b8; font-size: 14px;">Arquitectura de Integración Multi-Fuente: Multi-BD + Staging + Motor ETL + Repositorio Central</p>
+  </div>
+
+  <div class="actions">
+    <a href="/diagrama_arquitectura.png" download="diagrama_arquitectura_siiac.png" class="btn">
+      ⬇️ Descargar como PNG
+    </a>
+    <a href="/diagrama_arquitectura.svg" download="diagrama_arquitectura_siiac.svg" class="btn btn-secondary">
+      ⬇️ Descargar Vectorial (SVG)
+    </a>
+    <button onclick="downloadHighResPng()" class="btn btn-secondary">
+      🖼️ Generar PNG 4K desde Vectorial
+    </button>
+  </div>
+
+  <div class="preview-container">
+    <img id="diagramImg" src="/diagrama_arquitectura.svg" alt="Diagrama de Arquitectura SIIAC">
+  </div>
+
+  <canvas id="exportCanvas" style="display: none;"></canvas>
+
+  <script>
+    function downloadHighResPng() {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = '/diagrama_arquitectura.svg';
+      img.onload = function() {
+        const canvas = document.getElementById('exportCanvas');
+        const scale = 2; // 2x para resolución Ultra-HD (2400x1920)
+        canvas.width = 1200 * scale;
+        canvas.height = 960 * scale;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+        const a = document.createElement('a');
+        a.download = 'diagrama_arquitectura_siiac_4k.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      };
+    }
+  </script>
+</body>
+</html>
+

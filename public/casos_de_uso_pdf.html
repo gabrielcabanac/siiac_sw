@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documento Maestro de Casos de Uso y Pruebas — SIIAC (SI806U)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #0f172a;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.5;
+    }
+
+    /* Barra Superior no imprimible */
+    .no-print-bar {
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      border: 1px solid #cbd5e1;
+    }
+    .btn-print-pdf {
+      background: #1a73e8;
+      color: #ffffff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+    .btn-print-pdf:hover {
+      background: #1557b0;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(26,115,232,0.35);
+    }
+    .btn-back {
+      background: #f8fafc;
+      color: #334155;
+      border: 1.5px solid #cbd5e1;
+      padding: 11px 18px;
+      font-size: 13.5px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-back:hover { background: #e2e8f0; }
+
+    /* Contenedor Principal tipo Hoja A4 */
+    .document-page {
+      width: 100%;
+      max-width: 960px;
+      background: #ffffff;
+      padding: 50px 60px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Cabecera Institucional */
+    .doc-header {
+      border-bottom: 2.5px solid #1a73e8;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .brand-title h1 {
+      font-size: 24px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+    .brand-title p {
+      font-size: 13px;
+      color: #475569;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .meta-box {
+      text-align: right;
+      font-size: 11.5px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+    .meta-box strong { color: #0f172a; }
+    .badge-gcp {
+      background: #e8f0fe;
+      color: #1a73e8;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* Tipografía y secciones */
+    h2.section-heading {
+      font-size: 18px;
+      font-weight: 900;
+      color: #0f172a;
+      margin: 32px 0 14px 0;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h2.section-heading span.badge-num {
+      background: #1a73e8;
+      color: white;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    /* Tablas técnicas */
+    table.spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px 0;
+      font-size: 12.5px;
+    }
+    table.spec-table th, table.spec-table td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    table.spec-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #1e293b;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    table.spec-table tr:nth-child(even) td { background: #fbfcfe; }
+
+    /* Ficha Técnica de Caso de Uso */
+    .use-case-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      page-break-inside: avoid;
+    }
+    .use-case-header {
+      background: #f8fafc;
+      padding: 12px 18px;
+      border-bottom: 1.5px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .use-case-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tag-cu {
+      background: #1a73e8;
+      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .tag-module {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .use-case-body {
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .grid-props {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 6px 12px;
+      align-items: baseline;
+      font-size: 12.5px;
+    }
+    .prop-name {
+      font-weight: 700;
+      color: #475569;
+    }
+    .prop-val {
+      color: #0f172a;
+    }
+    .step-list {
+      margin-left: 20px;
+      margin-top: 4px;
+    }
+    .step-list li {
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+
+    .expected-box {
+      background: #f0fdf4;
+      border-left: 4px solid #10b981;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12.5px;
+      color: #064e3b;
+      margin-top: 6px;
+    }
+    .expected-box strong { color: #047857; }
+
+    .warning-box {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12.5px;
+      color: #78350f;
+      margin-top: 6px;
+    }
+
+    .pill-data {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: #0f172a;
+      font-size: 11.5px;
+    }
+
+    /* Pie de página */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1.5px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    /* ESTILOS PARA IMPRESIÓN Y PDF */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .no-print-bar {
+        display: none !important;
+      }
+      .document-page {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+        width: 100%;
+      }
+      .use-case-card {
+        page-break-inside: avoid;
+        margin-bottom: 24px;
+      }
+      h2.section-heading {
+        page-break-after: avoid;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 15mm 15mm 15mm 15mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra Superior con Botón de Descarga PDF -->
+  <div class="no-print-bar">
+    <div>
+      <span style="font-weight: 800; color: #0f172a; font-size: 15px;">Documento de Casos de Prueba y Demostración Integral</span>
+      <p style="font-size: 12px; color: #64748b; margin-top: 2px;">Listo para sustentar ante el docente o imprimir en PDF oficial</p>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <a href="/" class="btn-back">⬅️ Volver a la App</a>
+      <button onclick="window.print()" class="btn-print-pdf">
+        🖨️ Descargar / Guardar como PDF (A4)
+      </button>
+    </div>
+  </div>
+
+  <!-- PÁGINA IMPRIMIBLE DEL DOCUMENTO -->
+  <div class="document-page">
+
+    <!-- CABECERA INSTITUCIONAL -->
+    <div class="doc-header">
+      <div class="brand-title">
+        <h1>EXPEDIENTE DE PRUEBAS Y CASOS DE USO</h1>
+        <p>Sistema Integrado de Información y Atención al Ciudadano (SIIAC)</p>
+        <span class="badge-gcp">☁️ GOOGLE CLOUD: https://siiac-gabrielcabana-7144a.web.app</span>
+      </div>
+      <div class="meta-box">
+        <div><strong>Curso:</strong> SI806U Desarrollo Adaptativo e Integración de Software</div>
+        <div><strong>Arquitecto:</strong> Gabriel Cabana (Admin General)</div>
+        <div><strong>Fecha de Evaluación:</strong> Noviembre 2026</div>
+        <div><strong>Estado del Sistema:</strong> 🟢 100% Operativo en Producción</div>
+      </div>
+    </div>
+
+    <!-- 1. RESUMEN EJECUTIVO Y ALCANCE DE LA EVALUACIÓN -->
+    <h2 class="section-heading">
+      <span class="badge-num">1</span>
+      Matriz Maestra de Casos de Uso y Requerimientos Evaluados
+    </h2>
+
+    <p style="font-size: 13px; color: #334155; margin-bottom: 12px;">
+      El presente documento contiene la batería oficial de pruebas técnicas y funcionales que acreditan la interoperabilidad de las <strong>5 fuentes heterogéneas</strong> (Tránsito en PHP, Fiscalización Urbana en Java, Recaudación en C#, Inspectores en Excel y Bancos en Excel), la robustez del motor ETL con idempotencia criptográfica, la estrategia de cuarentena de datos y la visualización consolidada para el ciudadano.
+    </p>
+
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th style="width: 10%;">ID</th>
+          <th style="width: 25%;">Caso de Uso</th>
+          <th style="width: 20%;">Módulo Evaluado</th>
+          <th style="width: 25%;">Datos Clave de Entrada</th>
+          <th style="width: 20%;">Criterio de Aceptación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CU-01</strong></td>
+          <td>Consulta Multiaérea por DNI</td>
+          <td><code>/consulta</code> (Atención)</td>
+          <td>DNI: <code>45892104</code></td>
+          <td>Consolidación sin producto cartesiano de Tránsito y Fiscalización. Saldo exacto S/ 150.00.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-02</strong></td>
+          <td>Ingesta Excel Campo con Búsqueda Inmediata</td>
+          <td><code>/importar</code> ➔ <code>/consulta</code></td>
+          <td><code>papeletas_campo_inspectores.xlsx</code></td>
+          <td>Persistencia en lote y acceso directo en un clic para consultar la papeleta en vivo.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-03</strong></td>
+          <td>Amortización por Extracto Bancario</td>
+          <td><code>/importar</code> ➔ <code>/consulta</code></td>
+          <td><code>recaudacion_bancos_externos.xlsx</code></td>
+          <td>Actualización contable de saldos e intereses coactivos sin duplicar transacciones.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-04</strong></td>
+          <td>Cuarentena de Errores (Reject Bucket)</td>
+          <td><code>/importar</code> (Calidad)</td>
+          <td>Filas con monto -75, fecha inválida</td>
+          <td>Aislamiento de 4 filas corruptas en auditoría sin abortar las 10 válidas.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-05</strong></td>
+          <td>Digitación en Vivo y Cobro en Caja</td>
+          <td><code>/operaciones</code> (Mesa Partes)</td>
+          <td>Placa <code>ABC-123</code> / Acta Fiscaliz.</td>
+          <td>Reflejo inmediato en la base de datos de Tránsito, Fiscalización y Caja.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-06</strong></td>
+          <td>Pipeline ETL e Idempotencia SHA-256</td>
+          <td><code>/etl</code> (Orquestador)</td>
+          <td>Doble ejecución consecutiva</td>
+          <td>Ejecución 1 inserta registros; Ejecución 2 genera exactamente 0 duplicados.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-07</strong></td>
+          <td>Auditoría y Trazabilidad de Lotes</td>
+          <td><code>/historial</code> (Auditoría)</td>
+          <td>Lotes con errores y conformes</td>
+          <td>Verificación de hashes SHA-256 inmutables y descarga de reportes.</td>
+        </tr>
+        <tr>
+          <td><strong>CU-08</strong></td>
+          <td>Benchmark Carga Masiva (>100K) en GCP</td>
+          <td><code>/operaciones</code> (Benchmark)</td>
+          <td>100,000 registros sintéticos</td>
+          <td>Throughput &gt;15K filas/seg y memoria RAM controlada &lt;60 MB mediante streams.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 2. DETALLE PASO A PASO DE LOS CASOS DE USO -->
+    <h2 class="section-heading">
+      <span class="badge-num">2</span>
+      Fichas de Prueba Paso a Paso para la Demostración
+    </h2>
+
+    <!-- CASO DE USO 1 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-01</span>
+          Consulta Unificada de Deuda Ciudadana por DNI (Convergencia Multiaérea)
+        </div>
+        <span class="tag-module">Módulo: /consulta</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Objetivo:</span>
+          <span class="prop-val">Demostrar que el sistema resuelve la fragmentación de datos y el problema matemático del producto cartesiano unificando en un solo estado de cuenta las infracciones de Tránsito y las sanciones de Fiscalización Urbana con sus respectivos pagos e intereses.</span>
+          
+          <span class="prop-name">Actor / Rol:</span>
+          <span class="prop-val">Operador de Ventanilla / Gabriel Cabana (Administrador General).</span>
+
+          <span class="prop-name">DNI de Prueba:</span>
+          <span class="prop-val"><span class="pill-data">45892104</span> (Carlos Mendoza Pérez).</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Ingresar al portal oficial: <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/consulta</span>.</li>
+          <li>En la barra de búsqueda, ingresar el DNI <span class="pill-data">45892104</span> y presionar <strong>Buscar</strong> (o pulsar sobre el botón rápido sugerido).</li>
+          <li>Inspeccionar la papeleta <span class="pill-data">PAP-2024-00101</span>:
+            <ul style="margin-left: 20px; margin-top: 4px;">
+              <li>Monto Base (Tránsito): <strong>S/ 350.00</strong></li>
+              <li>Abono en Caja Municipal: <strong>-S/ 200.00</strong> (Recibo <code>REC-CAJA-101</code>)</li>
+              <li>Abono en Banco Externo: <strong>-S/ 50.00</strong> (Operación <code>EXT-BN-501</code>)</li>
+              <li>Intereses Coactivos: <strong>+S/ 50.00</strong> (Moras <code>COB-MORA-01</code> y <code>02</code>)</li>
+            </ul>
+          </li>
+          <li>Observar la insignia de origen: <strong>🚗 Tránsito y Transporte</strong> y las sanciones del área <strong>🏢 Fiscalización y Control Urbano</strong>.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> El sistema calcula con total precisión el Saldo Pendiente:  
+          $$\text{Saldo} = S/\ 350.00 + S/\ 50.00 - S/\ 250.00 = \mathbf{S/\ 150.00}$$
+          Estado de la infracción: <strong>AMORTIZADA</strong>. Cero duplicidades en las transacciones gracias a la vista CTE sin producto cartesiano.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 2 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-02</span>
+          Ingesta de Archivo Excel de Inspectores y Consulta Inmediata en Vivo
+        </div>
+        <span class="tag-module">Módulo: /importar ➔ /consulta</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Objetivo:</span>
+          <span class="prop-val">Comprobar que al cargar un archivo Excel real de inspectores de campo, los datos se validan, se insertan dinámicamente y quedan disponibles de inmediato para su consulta ciudadana mediante un botón directo de acceso.</span>
+
+          <span class="prop-name">Archivo de Prueba:</span>
+          <span class="prop-val"><span class="pill-data">papeletas_campo_inspectores.xlsx</span> (disponible en la carpeta de muestras).</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Ingresar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/importar</span>.</li>
+          <li>Seleccionar la pestaña <strong>1. Infracciones de Campo (Inspectores)</strong>.</li>
+          <li>Arrastrar o seleccionar el archivo <span class="pill-data">papeletas_campo_inspectores.xlsx</span>.</li>
+          <li>Revisar la tabla de <strong>Previsualización y Calidad</strong>: verificar cómo se separan las 10 filas válidas de las 4 filas con discrepancias.</li>
+          <li>Hacer clic en el botón verde <strong>Confirmar e Importar Lote</strong>.</li>
+          <li>Aparecerá la tarjeta de éxito verde con el botón:  
+            <strong>🔍 Consultar Registro de este Lote ([PAP-2024-00401])</strong>.</li>
+          <li>Hacer clic en dicho botón directo.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> El sistema redirige automáticamente a <code>/consulta?q=PAP-2024-00401</code>, ejecutando la búsqueda en tiempo real. Aparece la papeleta de <strong>Rosa Victoria Huamán Ramos (DNI: 08392019)</strong> con Monto Base S/ 280.00, estado PENDIENTE y procedencia verificada.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 3 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-03</span>
+          Ingesta de Extractos Bancarios & Coactiva con Amortización Automática
+        </div>
+        <span class="tag-module">Módulo: /importar ➔ /consulta</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Objetivo:</span>
+          <span class="prop-val">Verificar la integración de fuentes externas bancarias y liquidaciones coactivas, impactando los saldos exigibles de las papeletas sin requerir intervención manual.</span>
+
+          <span class="prop-name">Archivo de Prueba:</span>
+          <span class="prop-val"><span class="pill-data">recaudacion_bancos_externos.xlsx</span>.</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>En el módulo de importación, seleccionar la pestaña <strong>2. Recaudación Externa & Coactiva</strong>.</li>
+          <li>Cargar el archivo <span class="pill-data">recaudacion_bancos_externos.xlsx</span>.</li>
+          <li>Comprobar la clasificación de transacciones entre <strong>PAGOS</strong> (abonos BCP/BBVA) e <strong>INTERESES</strong> (gastos coactivos).</li>
+          <li>Presionar <strong>Confirmar e Importar Lote</strong>.</li>
+          <li>Ir a <span class="pill-data">/consulta</span> y buscar la papeleta <span class="pill-data">PAP-2024-00202</span> o DNI <span class="pill-data">71203948</span>.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> La papeleta refleja el abono bancario de S/ 300.00 (`EXT-BN-502`) y el gasto de notificación de S/ 62.00 (`COB-MORA-03`), recalculando el saldo en vivo con su correspondiente traza de auditoría.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 4 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-04</span>
+          Estrategia de Cuarentena y Resiliencia ante Errores (Reject Bucket)
+        </div>
+        <span class="tag-module">Módulo: /importar (Calidad de Datos)</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Pregunta Docente:</span>
+          <span class="prop-val"><em>"¿Qué sucede si un archivo bancario o de inspectores contiene registros corruptos? ¿Se cae todo el sistema?"</em></span>
+
+          <span class="prop-name">Principio:</span>
+          <span class="prop-val"><strong>Resiliencia sin ROLLBACK destructivo.</strong> Si un lote de 20,000 registros contiene 4 filas corruptas, detener todo perjudica a 19,996 ciudadanos. Se aplica aislamiento selectivo a la tabla de cuarentena <code>staging.import_errors</code>.</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Durante la previsualización de <span class="pill-data">papeletas_campo_inspectores.xlsx</span>, señalar las filas resaltadas en color rojo:
+            <ul style="margin-left: 20px; margin-top: 4px;">
+              <li>Fila con código <span class="pill-data">PAP-ERR-NEGATIVO</span>: Monto -75.00 ➔ Motivo: <code>INVALID_AMOUNT</code>.</li>
+              <li>Fila 8: Número de papeleta vacío ➔ Motivo: <code>MISSING_TICKET</code>.</li>
+              <li>Fila con código <span class="pill-data">PAP-2024-99999</span>: Fecha corrupta ➔ Motivo: <code>INVALID_DATE</code>.</li>
+            </ul>
+          </li>
+          <li>Procesar la importación y mostrar el resumen final: <strong>10 filas aprobadas</strong> y <strong>4 filas enviadas a cuarentena</strong>.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> Las 10 filas válidas ingresan al repositorio central; las 4 corruptas son enviadas a la tabla de errores con el número de fila, columna y regla violada, disponibles para descarga en reporte de discrepancias.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 5 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-05</span>
+          Digitación en Mesa de Partes en Vivo y Cobro en Ventanilla
+        </div>
+        <span class="tag-module">Módulo: /operaciones</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Objetivo:</span>
+          <span class="prop-val">Demostrar la operatividad simultánea de las 3 áreas institucionales: Tránsito (Área 1), Fiscalización Urbana (Área 2) y Recaudación/Caja (Área 3).</span>
+
+          <span class="prop-name">Usuario Firmado:</span>
+          <span class="prop-val">Gabriel Cabana (Administrador General).</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Navegar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/operaciones</span>.</li>
+          <li><strong>Pestaña 1 (Tránsito):</strong> Digitar Placa <span class="pill-data">XYZ-999</span>, DNI <span class="pill-data">45892104</span>, Falta <span class="pill-data">M-01 (S/ 515.00)</span> y presionar <em>Guardar en BD Tránsito</em>.</li>
+          <li><strong>Pestaña 2 (Fiscalización Urbana):</strong> Registrar una Resolución de Sanción Administrativa (RSA) para el infractor DNI <span class="pill-data">45892104</span> con código <span class="pill-data">FISC-01 (Clausura y Multa S/ 2,575.00)</span>.</li>
+          <li><strong>Pestaña 3 (Cobro en Caja Unificada):</strong> Seleccionar una de las sanciones creadas, registrar un abono de <span class="pill-data">S/ 200.00</span> con medio <em>POS Visa</em> y cajero <em>Gabriel Cabana</em>.</li>
+          <li>Ir inmediatamente a <span class="pill-data">/consulta</span> y buscar el DNI <span class="pill-data">45892104</span>.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> Ambas infracciones (Tránsito y Fiscalización) aparecen consolidadas bajo el mismo ciudadano, con el abono registrado en caja y el saldo recalculado al instante.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 6 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-06</span>
+          Ejecución del Pipeline ETL y Demostración de Idempotencia Criptográfica
+        </div>
+        <span class="tag-module">Módulo: /etl</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Objetivo:</span>
+          <span class="prop-val">Acreditar que el motor ETL utiliza hashing SHA-256 para garantizar que reprocesar las mismas fuentes 1, 10 o 100 veces no genere ni un solo registro duplicado.</span>
+
+          <span class="prop-name">Mecanismo:</span>
+          <span class="prop-val">Hash CDC (Change Data Capture) calculado a partir de la tupla <code>{ticket_number, base_amount, violation_code, date}</code>.</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Ingresar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/etl</span>.</li>
+          <li>Hacer clic en <strong>Ejecutar Pipeline ETL Integral</strong>.</li>
+          <li>Observar la animación por fases: Extracción ➔ Staging ➔ Cuarentena ➔ Deduplicación ➔ Carga Core.</li>
+          <li>Mostrar las métricas: Registros insertados y rechazados.</li>
+          <li><strong>La prueba de fuego de idempotencia:</strong> Hacer clic inmediatamente por segunda vez en <strong>Ejecutar Pipeline ETL Integral</strong>.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> En la segunda corrida, la métrica de Inserciones Nuevas es exactamente <strong>0</strong>. El sistema indica <em>"0 registros modificados, lote idéntico detectado por hash"</em>. Cero duplicidades en base de datos.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 7 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-07</span>
+          Auditoría, Trazabilidad Inmutable y Descarga de Reportes
+        </div>
+        <span class="tag-module">Módulo: /historial</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Objetivo:</span>
+          <span class="prop-val">Garantizar que todo proceso de integración quede registrado en el libro mayor de auditoría con sello de tiempo, usuario responsable y hash inmutable del lote.</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Ingresar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/historial</span>.</li>
+          <li>Examinar la tabla de lotes históricos:
+            <ul style="margin-left: 20px; margin-top: 4px;">
+              <li>Lotes con estado <strong>COMPLETADO</strong> (100% conformes).</li>
+              <li>Lotes con estado <strong>COMPLETADO_CON_ERRORES</strong> (filas enviadas a cuarentena).</li>
+            </ul>
+          </li>
+          <li>Mostrar la columna <strong>Hash SHA-256</strong> que certifica la inmutabilidad de la auditoría.</li>
+          <li>Hacer clic en <strong>Descargar Reporte CSV de Discrepancias</strong>.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong> Se descarga el archivo detallando exactamente qué fila falló, qué regla no cumplió y el valor original para que el área de origen pueda subsanarlo.
+        </div>
+      </div>
+    </div>
+
+    <!-- CASO DE USO 8 -->
+    <div class="use-case-card">
+      <div class="use-case-header">
+        <div class="use-case-title">
+          <span class="tag-cu">CU-08</span>
+          Benchmark de Escalabilidad y Carga Masiva (>100K filas) en Google Cloud
+        </div>
+        <span class="tag-module">Módulo: /operaciones (Pestaña 4)</span>
+      </div>
+      <div class="use-case-body">
+        <div class="grid-props">
+          <span class="prop-name">Pregunta Docente:</span>
+          <span class="prop-val"><em>"¿Cómo respondería la solución si la municipalidad debe procesar 100,000 o 500,000 registros de fiscalización de un solo golpe?"</em></span>
+
+          <span class="prop-name">Sustento Cloud:</span>
+          <span class="prop-val">Procesamiento por streams desacoplado mediante <strong>Cloud Storage</strong> (recepción por Signed URL sin tocar la RAM del servidor web) y <strong>Cloud Run Jobs</strong> (worker batch en chunks de 5,000 filas con COPY FROM STDIN).</span>
+        </div>
+
+        <div><strong>Procedimiento de Demostración:</strong></div>
+        <ol class="step-list">
+          <li>Ir a <span class="pill-data">/operaciones</span> y seleccionar la pestaña <strong>4. Benchmark Carga Masiva (>100K)</strong>.</li>
+          <li>Seleccionar el volumen de <strong>100,000 registros</strong>.</li>
+          <li>Presionar el botón <strong>Ejecutar Prueba de Rendimiento</strong>.</li>
+          <li>Observar el medidor de throughput y el consumo de memoria en pantalla.</li>
+        </ol>
+
+        <div class="expected-box">
+          <strong>Resultado Esperado:</strong>  
+          - <strong>Throughput:</strong> &gt; 15,000 filas procesadas por segundo.  
+          - <strong>Consumo RAM:</strong> Acotado a menos de 60 MB constantes, sin fuga de memoria ni desbordamiento de búfer.  
+          - <strong>Idempotencia:</strong> Registros duplicados filtrados al vuelo.
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. GUION DE DEFENSA ANTE EL DOCENTE -->
+    <h2 class="section-heading">
+      <span class="badge-num">3</span>
+      Guion Estratégico de Sustentación Oral (5 Minutos)
+    </h2>
+
+    <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 20px; font-size: 13px; line-height: 1.6;">
+      <p style="margin-bottom: 12px;">
+        <strong>Minuto 1 (Planteamiento en Google Cloud):</strong><br>
+        <em>"Profesor, el proyecto está completamente desplegado en la infraestructura de <strong>Google Cloud Platform</strong> bajo el ID de proyecto <code>siiac-gabrielcabana-7144a</code>, accesible públicamente en <strong>https://siiac-gabrielcabana-7144a.web.app</strong>. Integramos 5 fuentes que históricamente operaban como silos aislados: el sistema legado de Tránsito en PHP, el sistema de Fiscalización Urbana en Java, la caja municipal en C#, las papeletas de inspectores en Excel y los abonos de bancos externos."</em>
+      </p>
+
+      <p style="margin-bottom: 12px;">
+        <strong>Minuto 2 (Demostración de Carga y Búsqueda Inmediata):</strong><br>
+        <em>"Procedo a cargar el archivo real de inspectores de campo <code>papeletas_campo_inspectores.xlsx</code>. Como puede observar, el motor analiza el archivo y detecta 10 registros válidos y 4 con errores. Al confirmar el lote, la aplicación persiste los registros y me entrega un botón de acceso directo que me lleva de inmediato a la consulta ciudadana por DNI, donde la papeleta ya figura con su monto y procedencia oficial."</em>
+      </p>
+
+      <p style="margin-bottom: 12px;">
+        <strong>Minuto 3 (Demostración de Cuarentena y Calidad de Datos):</strong><br>
+        <em>"Ante la pregunta de qué ocurre con las filas corruptas, aplicamos el principio de <strong>Resiliencia sin ROLLBACK destructivo</strong>: las filas con monto negativo o fecha corrupta no detienen el archivo completo, sino que son enviadas a la tabla de cuarentena <code>staging.import_errors</code>, permitiendo descargar el reporte de discrepancias para subsanación."</em>
+      </p>
+
+      <p style="margin-bottom: 12px;">
+        <strong>Minuto 4 (Demostración de Idempotencia Criptográfica):</strong><br>
+        <em>"En el módulo ETL ejecutamos el pipeline completo. Como puede comprobar, en la primera ejecución se insertan los registros; si lo ejecuto inmediatamente por segunda vez, el motor calcula el hash SHA-256 de cada registro y detecta que son idénticos, generando exactamente cero duplicados."</em>
+      </p>
+
+      <p>
+        <strong>Minuto 5 (Solución al Producto Cartesiano y Arquitectura Cloud):</strong><br>
+        <em>"Finalmente, en la consulta por DNI <code>45892104</code> demostramos la anulación matemática del producto cartesiano mediante vistas SQL con CTEs: sumamos los pagos independientemente de los intereses antes de liquidar el saldo final de S/ 150.00. Además, contamos con la especificación completa en Docker y Nginx en el puerto 8080 para su ejecución nativa en Cloud Run."</em>
+      </p>
+    </div>
+
+    <!-- PIE DE PÁGINA DEL DOCUMENTO -->
+    <div class="doc-footer">
+      <div>
+        <strong>ARQUITECTO DE SOLUCIÓN:</strong> GABRIEL CABANA • ADMINISTRADOR GENERAL
+      </div>
+      <div>
+        <strong>CURSO:</strong> SI806U • DESARROLLO ADAPTATIVO E INTEGRACIÓN DE SOFTWARE
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #1a73e8; font-weight: 700;">
+        SIIAC PRODUCTION GCP 2026
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+

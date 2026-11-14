@@ -1,0 +1,242 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 960" width="100%" height="100%" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+    </marker>
+  </defs>
+
+  <!-- Fondo Principal -->
+  <rect width="1200" height="960" fill="url(#bgGrad)" />
+
+  <!-- Título Principal del Diagrama -->
+  <text x="600" y="45" text-anchor="middle" font-size="24" font-weight="900" fill="#ffffff" letter-spacing="0.5">SISTEMA INTEGRADO DE INFORMACIÓN Y ATENCIÓN AL CIUDADANO (SIIAC)</text>
+  <text x="600" y="72" text-anchor="middle" font-size="13" font-weight="600" fill="#34d399" letter-spacing="1.5">ARQUITECTURA DE INTEGRACIÓN MULTI-FUENTE (MULTI-BD + EXCEL + STAGING + ETL)</text>
+
+  <!-- ========================================================================= -->
+  <!-- CAPA 1: FUENTES DESCENTRALIZADAS -->
+  <!-- ========================================================================= -->
+  <rect x="40" y="100" width="1120" height="155" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+  <rect x="55" y="88" width="310" height="24" rx="6" fill="#0284c7" />
+  <text x="210" y="104" text-anchor="middle" font-size="11" font-weight="800" fill="#ffffff" letter-spacing="1">1. FUENTES DE DATOS DESCENTRALIZADAS</text>
+
+  <!-- Fuente 1: BD Tránsito -->
+  <g transform="translate(60, 125)">
+    <rect width="250" height="110" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)" />
+    <rect x="12" y="10" width="70" height="18" rx="4" fill="#e0f2fe" />
+    <text x="47" y="23" text-anchor="middle" font-size="9" font-weight="800" fill="#0369a1">ÁREA 1: TRÁNSITO</text>
+    <text x="12" y="45" font-size="13" font-weight="800" fill="#0f172a">BD Sistema Tránsito</text>
+    <text x="12" y="62" font-size="11" font-mono font-weight="600" fill="#2563eb">legacy_papeletas.sgp_papeletas</text>
+    <text x="12" y="78" font-size="10" fill="#64748b">• Infracciones y ciudadanos base</text>
+    <text x="12" y="92" font-size="10" font-weight="600" fill="#059669">Simulación Lógica PHP/MySQL</text>
+  </g>
+
+  <!-- Fuente 2: Excel Inspectores -->
+  <g transform="translate(335, 125)">
+    <rect width="250" height="110" rx="10" fill="url(#cardGrad)" stroke="#34d399" stroke-width="2" filter="url(#shadow)" />
+    <rect x="12" y="10" width="70" height="18" rx="4" fill="#d1fae5" />
+    <text x="47" y="23" text-anchor="middle" font-size="9" font-weight="800" fill="#065f46">ÁREA 1: TRÁNSITO</text>
+    <text x="12" y="45" font-size="13" font-weight="800" fill="#0f172a">Excel Inspectores Campo</text>
+    <text x="12" y="62" font-size="11" font-mono font-weight="600" fill="#059669">papeletas_campo_inspectores.xlsx</text>
+    <text x="12" y="78" font-size="10" fill="#64748b">• Actas manuales no digitadas</text>
+    <text x="12" y="92" font-size="10" font-weight="600" fill="#0284c7">Archivo Binario Real (.xlsx)</text>
+  </g>
+
+  <!-- Fuente 3: BD Recaudación -->
+  <g transform="translate(615, 125)">
+    <rect width="250" height="110" rx="10" fill="url(#cardGrad)" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)" />
+    <rect x="12" y="10" width="85" height="18" rx="4" fill="#e0f2fe" />
+    <text x="54" y="23" text-anchor="middle" font-size="9" font-weight="800" fill="#0369a1">ÁREA 2: RECAUDACIÓN</text>
+    <text x="12" y="45" font-size="13" font-weight="800" fill="#0f172a">BD Sistema de Caja</text>
+    <text x="12" y="62" font-size="11" font-mono font-weight="600" fill="#2563eb">legacy_recaudacion.caja_pagos</text>
+    <text x="12" y="78" font-size="10" fill="#64748b">• Recibos de ventanilla central</text>
+    <text x="12" y="92" font-size="10" font-weight="600" fill="#059669">Simulación Lógica C#/SQL Server</text>
+  </g>
+
+  <!-- Fuente 4: Excel Bancos y Coactiva -->
+  <g transform="translate(890, 125)">
+    <rect width="250" height="110" rx="10" fill="url(#cardGrad)" stroke="#fbbf24" stroke-width="2" filter="url(#shadow)" />
+    <rect x="12" y="10" width="85" height="18" rx="4" fill="#fef3c7" />
+    <text x="54" y="23" text-anchor="middle" font-size="9" font-weight="800" fill="#92400e">ÁREA 2: RECAUDACIÓN</text>
+    <text x="12" y="45" font-size="13" font-weight="800" fill="#0f172a">Excel Bancos &amp; Coactiva</text>
+    <text x="12" y="62" font-size="11" font-mono font-weight="600" fill="#d97706">recaudacion_bancos_externos.xlsx</text>
+    <text x="12" y="78" font-size="10" fill="#64748b">• Abonos BCP/BBVA e Intereses mora</text>
+    <text x="12" y="92" font-size="10" font-weight="600" fill="#0284c7">Archivo Binario Real (.xlsx)</text>
+  </g>
+
+  <!-- Flechas hacia Staging -->
+  <line x1="185" y1="235" x2="185" y2="285" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4" marker-end="url(#arrowBlue)" />
+  <line x1="460" y1="235" x2="460" y2="285" stroke="#34d399" stroke-width="2.5" stroke-dasharray="4" marker-end="url(#arrow)" />
+  <line x1="740" y1="235" x2="740" y2="285" stroke="#38bdf8" stroke-width="2.5" stroke-dasharray="4" marker-end="url(#arrowBlue)" />
+  <line x1="1015" y1="235" x2="1015" y2="285" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="4" marker-end="url(#arrow)" />
+
+  <!-- ========================================================================= -->
+  <!-- CAPA 2: STAGING / LANDING ZONE -->
+  <!-- ========================================================================= -->
+  <rect x="40" y="295" width="1120" height="135" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+  <rect x="55" y="283" width="280" height="24" rx="6" fill="#7c3aed" />
+  <text x="195" y="299" text-anchor="middle" font-size="11" font-weight="800" fill="#ffffff" letter-spacing="1">2. CAPA STAGING (schema: staging)</text>
+
+  <g transform="translate(60, 318)">
+    <rect width="250" height="95" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" />
+    <text x="15" y="25" font-size="12" font-weight="800" fill="#c4b5fd">staging.infracciones_raw</text>
+    <text x="15" y="45" font-size="10" fill="#94a3b8">• Datos crudos de BD e Inspectores</text>
+    <text x="15" y="60" font-size="10" fill="#94a3b8">• Hash MD5 para control de cambios</text>
+    <text x="15" y="75" font-size="10" font-mono fill="#a78bfa">• source_system + source_record_id</text>
+  </g>
+
+  <g transform="translate(335, 318)">
+    <rect width="250" height="95" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1.5" />
+    <text x="15" y="25" font-size="12" font-weight="800" fill="#c4b5fd">staging.transacciones_raw</text>
+    <text x="15" y="45" font-size="10" fill="#94a3b8">• Pagos de Caja y Abonos Bancarios</text>
+    <text x="15" y="60" font-size="10" fill="#94a3b8">• Intereses y costas coactivas</text>
+    <text x="15" y="75" font-size="10" font-mono fill="#a78bfa">• tipo: PAGO | INTERES</text>
+  </g>
+
+  <g transform="translate(615, 318)">
+    <rect width="250" height="95" rx="8" fill="#0f172a" stroke="#ef4444" stroke-width="1.5" />
+    <text x="15" y="25" font-size="12" font-weight="800" fill="#fca5a5">staging.etl_errors (Quality Gate)</text>
+    <text x="15" y="45" font-size="10" fill="#94a3b8">• Aislamiento de filas inválidas</text>
+    <text x="15" y="60" font-size="10" fill="#94a3b8">• Montos negativos, nulos, fechas malas</text>
+    <text x="15" y="75" font-size="10" font-mono fill="#f87171">• Trazabilidad de rechazos</text>
+  </g>
+
+  <g transform="translate(890, 318)">
+    <rect width="250" height="95" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+    <text x="15" y="25" font-size="12" font-weight="800" fill="#6ee7b7">staging.etl_runs (Auditoría)</text>
+    <text x="15" y="45" font-size="10" fill="#94a3b8">• Control de Lotes y ejecuciones</text>
+    <text x="15" y="60" font-size="10" fill="#94a3b8">• Extraídos, Insertados, Actualizados</text>
+    <text x="15" y="75" font-size="10" font-mono fill="#34d399">• Timestamp y usuario ejecutor</text>
+  </g>
+
+  <!-- Flecha de Staging a ETL -->
+  <line x1="600" y1="430" x2="600" y2="465" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- ========================================================================= -->
+  <!-- CAPA 3: MOTOR TRANSACCIONAL ETL -->
+  <!-- ========================================================================= -->
+  <rect x="40" y="475" width="1120" height="95" rx="14" fill="#064e3b" stroke="#059669" stroke-width="2" filter="url(#shadow)" />
+  <rect x="55" y="463" width="360" height="24" rx="6" fill="#059669" />
+  <text x="235" y="479" text-anchor="middle" font-size="11" font-weight="800" fill="#ffffff" letter-spacing="1">3. MOTOR ETL TRANSACCIONAL (execute_full_etl_pipeline)</text>
+
+  <g transform="translate(60, 495)">
+    <rect width="250" height="60" rx="6" fill="#022c22" stroke="#10b981" stroke-width="1" />
+    <text x="125" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="#34d399">1. Extracción Atómica</text>
+    <text x="125" y="43" text-anchor="middle" font-size="10" fill="#a7f3d0">Snapshots BDs + Ingesta Excel</text>
+  </g>
+  <g transform="translate(335, 495)">
+    <rect width="250" height="60" rx="6" fill="#022c22" stroke="#10b981" stroke-width="1" />
+    <text x="125" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="#34d399">2. Validación y Limpieza</text>
+    <text x="125" y="43" text-anchor="middle" font-size="10" fill="#a7f3d0">Quality Gate: Valida reglas de negocio</text>
+  </g>
+  <g transform="translate(615, 495)">
+    <rect width="250" height="60" rx="6" fill="#022c22" stroke="#10b981" stroke-width="1" />
+    <text x="125" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="#34d399">3. Detección de Cambios (CDC)</text>
+    <text x="125" y="43" text-anchor="middle" font-size="10" fill="#a7f3d0">Cálculo de Hash MD5 por contenido</text>
+  </g>
+  <g transform="translate(890, 495)">
+    <rect width="250" height="60" rx="6" fill="#022c22" stroke="#10b981" stroke-width="1" />
+    <text x="125" y="25" text-anchor="middle" font-size="11" font-weight="800" fill="#34d399">4. Carga Idempotente</text>
+    <text x="125" y="43" text-anchor="middle" font-size="10" fill="#a7f3d0">INSERT / UPDATE / UNCHANGED</text>
+  </g>
+
+  <!-- Flecha de ETL a Core -->
+  <line x1="600" y1="570" x2="600" y2="605" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- ========================================================================= -->
+  <!-- CAPA 4: REPOSITORIO CENTRAL CONSOLIDADO -->
+  <!-- ========================================================================= -->
+  <rect x="40" y="615" width="1120" height="155" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+  <rect x="55" y="603" width="380" height="24" rx="6" fill="#0284c7" />
+  <text x="245" y="619" text-anchor="middle" font-size="11" font-weight="800" fill="#ffffff" letter-spacing="1">4. REPOSITORIO CENTRAL Y VISTA CONSOLIDADA (schema: public)</text>
+
+  <g transform="translate(60, 638)">
+    <rect width="195" height="115" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="97" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#38bdf8">public.citizens</text>
+    <text x="15" y="50" font-size="10" fill="#94a3b8">• Padrón unificado</text>
+    <text x="15" y="68" font-size="10" fill="#94a3b8">• document_number UNIQUE</text>
+    <text x="15" y="86" font-size="10" fill="#94a3b8">• Datos ficticios</text>
+  </g>
+
+  <g transform="translate(270, 638)">
+    <rect width="200" height="115" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="100" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#38bdf8">public.tickets</text>
+    <text x="15" y="48" font-size="10" fill="#94a3b8">• ticket_number UNIQUE</text>
+    <text x="15" y="65" font-size="10" fill="#94a3b8">• base_amount + issue_date</text>
+    <text x="15" y="82" font-size="10" fill="#94a3b8">• source_system + entity</text>
+    <text x="15" y="99" font-size="10" font-mono fill="#38bdf8">• record_hash (CDC)</text>
+  </g>
+
+  <g transform="translate(485, 638)">
+    <rect width="195" height="115" rx="8" fill="#0f172a" stroke="#34d399" stroke-width="1.5" />
+    <text x="97" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#34d399">public.payments</text>
+    <text x="15" y="48" font-size="10" fill="#94a3b8">• Caja + Bancos</text>
+    <text x="15" y="65" font-size="10" fill="#94a3b8">• amount &gt; 0</text>
+    <text x="15" y="82" font-size="10" fill="#94a3b8">• UNIQUE (ticket, key)</text>
+    <text x="15" y="99" font-size="10" font-mono fill="#34d399">• last_etl_at</text>
+  </g>
+
+  <g transform="translate(695, 638)">
+    <rect width="195" height="115" rx="8" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="97" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#fbbf24">public.interest_charges</text>
+    <text x="15" y="48" font-size="10" fill="#94a3b8">• Intereses Coactiva</text>
+    <text x="15" y="65" font-size="10" fill="#94a3b8">• Gastos de notificación</text>
+    <text x="15" y="82" font-size="10" fill="#94a3b8">• UNIQUE (ticket, key)</text>
+    <text x="15" y="99" font-size="10" font-mono fill="#fbbf24">• record_hash</text>
+  </g>
+
+  <g transform="translate(905, 638)">
+    <rect width="235" height="115" rx="8" fill="#0f172a" stroke="#f43f5e" stroke-width="2" />
+    <text x="117" y="22" text-anchor="middle" font-size="11" font-weight="800" fill="#fb7185">consolidated_tickets_view</text>
+    <text x="15" y="42" font-size="10" font-weight="700" fill="#ffffff">Sin Producto Cartesiano:</text>
+    <text x="15" y="58" font-size="9" fill="#94a3b8">CTEs agrupan pagos e intereses</text>
+    <text x="15" y="72" font-size="9" fill="#94a3b8">separadamente ANTES del JOIN</text>
+    <rect x="15" y="80" width="205" height="24" rx="4" fill="#881337" />
+    <text x="117" y="96" text-anchor="middle" font-size="9" font-weight="800" fill="#fecdd3">Saldo = Base + Intereses - Pagos</text>
+  </g>
+
+  <!-- Flecha de Core a UI -->
+  <line x1="600" y1="770" x2="600" y2="805" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrowBlue)" />
+
+  <!-- ========================================================================= -->
+  <!-- CAPA 5: PRESENTACIÓN REACT + TYPESCRIPT -->
+  <!-- ========================================================================= -->
+  <rect x="40" y="815" width="1120" height="115" rx="14" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+  <rect x="55" y="803" width="340" height="24" rx="6" fill="#1e40af" />
+  <text x="225" y="819" text-anchor="middle" font-size="11" font-weight="800" fill="#ffffff" letter-spacing="1">5. CAPA DE PRESENTACIÓN (React 18 + Vite + Tailwind)</text>
+
+  <g transform="translate(60, 838)">
+    <rect width="330" height="75" rx="8" fill="url(#cardGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="165" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">Dashboard de Integración</text>
+    <text x="165" y="43" text-anchor="middle" font-size="10" fill="#64748b">Matriz de estado de las 4 fuentes y métricas globales</text>
+    <text x="165" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#059669">KPIs de Papeletas, Pagos y Saldo Exigible</text>
+  </g>
+
+  <g transform="translate(435, 838)">
+    <rect width="330" height="75" rx="8" fill="url(#cardGrad)" stroke="#059669" stroke-width="2" />
+    <text x="165" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">Orquestador ETL (PanelETL.tsx)</text>
+    <text x="165" y="43" text-anchor="middle" font-size="10" fill="#64748b">Ejecución interactiva por fases y monitoreo en vivo</text>
+    <text x="165" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#0284c7">Pestañas de Métricas, Capa Staging y Errores</text>
+  </g>
+
+  <g transform="translate(810, 838)">
+    <rect width="330" height="75" rx="8" fill="url(#cardGrad)" stroke="#cbd5e1" stroke-width="1.5" />
+    <text x="165" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="#0f172a">Atención al Ciudadano (Consulta)</text>
+    <text x="165" y="43" text-anchor="middle" font-size="10" fill="#64748b">Búsqueda en tiempo real por DNI o Papeleta</text>
+    <text x="165" y="60" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">Desglose de procedencia y trazabilidad de origen</text>
+  </g>
+</svg>
+

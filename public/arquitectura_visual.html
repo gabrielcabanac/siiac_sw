@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arquitectura de Integración y Google Cloud — SIIAC</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #090d16;
+      color: #f1f5f9;
+      padding: 24px;
+    }
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 24px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 6px;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+    p.subtitle {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .author-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 6px;
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    .author-pill {
+      background: #1e293b;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid #334155;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+    .controls {
+      max-width: 1400px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-between: space-between;
+    }
+    .btn {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      text-decoration: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    }
+    .btn:hover { background: #10b981; transform: translateY(-1px); }
+    .btn-secondary {
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: #f1f5f9;
+    }
+    .btn-secondary:hover { background: #334155; }
+    .diagram-card {
+      max-width: 1400px;
+      margin: 0 auto 32px auto;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow-x: auto;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+    }
+    .stack-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .stack-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .stack-card h3 {
+      margin: 0 0 8px 0;
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stack-card p {
+      margin: 0;
+      font-size: 12.5px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="badge">Arquitectura de Solución Cloud & Datos • SIIAC</div>
+    <h1>Sistema Integrado de Información y Atención al Ciudadano</h1>
+    <p class="subtitle">
+      Consolidación de 3 Gerencias Municipales (5 Orígenes Heterogéneos), Capa Staging de Calidad con Aislamiento de Errores, Deduplicación Criptográfica y Pipeline Masivo en Google Cloud Platform (>100K a 500K Registros).
+    </p>
+    <div class="author-bar">
+      <span class="author-pill">👤 Autor: Gabriel Cabana • Administrador General</span>
+      <span>🏛️ SI806U: Desarrollo Adaptativo e Integración de Software</span>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button onclick="downloadSvg()" class="btn">
+      ⬇️ Descargar Diagrama en SVG (Vectorial 4K)
+    </button>
+    <button onclick="downloadPng()" class="btn btn-secondary">
+      🖼️ Descargar Diagrama en PNG
+    </button>
+    <button onclick="window.print()" class="btn btn-secondary">
+      🖨️ Imprimir / Guardar en PDF
+    </button>
+    <a href="https://automatizacion-proy-sw.vercel.app" target="_blank" class="btn btn-secondary">
+      🌐 Abrir Sistema en Vivo (Producción) ↗
+    </a>
+  </div>
+
+  <div class="diagram-card" id="diagramWrapper">
+    <div class="mermaid" id="mermaidDiagram">
+flowchart TD
+    %% Estilos de Nodos
+    classDef area1 fill:#1e3a8a,stroke:#3b82f6,stroke-width:2px,color:#ffffff
+    classDef area2 fill:#581c87,stroke:#a855f7,stroke-width:2px,color:#ffffff
+    classDef area3 fill:#064e3b,stroke:#10b981,stroke-width:2px,color:#ffffff
+    classDef gcp fill:#0b192c,stroke:#38bdf8,stroke-width:2px,color:#38bdf8
+    classDef staging fill:#451a03,stroke:#f97316,stroke-width:2px,color:#fef08a
+    classDef core fill:#042f2e,stroke:#14b8a6,stroke-width:2px,color:#ccfbf1
+    classDef ui fill:#1e293b,stroke:#64748b,stroke-width:2px,color:#f8fafc
+
+    subgraph Fuentes["1. FUENTES HETEROGÉNEAS (SILOS MUNICIPALES)"]
+        F1["🚗 Área 1: Tránsito y Transporte\nBD MySQL / PHP (sgp_papeletas)\nInfracciones vehiculares en vía"]:::area1
+        F2["🏢 Área 2: Fiscalización Urbana\nBD PostgreSQL / Java (sgf_sanciones)\nMultas RSA, clausuras y obras"]:::area2
+        F3["💳 Área 3: Recaudación y Caja\nBD SQL Server / C# (caja_pagos)\nCobranza y recibos de ventanilla"]:::area3
+        F4["📄 Inspectores de Campo (Excel)\npapeletas_campo_inspectores.xlsx\nPapeletas manuales en calle"]:::area1
+        F5["🏦 Bancos Externos & Coactiva (Excel)\nrecaudacion_bancos_externos.xlsx\nAbonos BCP/BN y mora coactiva"]:::area3
+        F6["📦 Archivo Masivo de Alta Escala\n(500,000 Filas x 30 Columnas)\nCarga pesada de inspectores / padrón"]:::gcp
+    end
+
+    subgraph GCP["2. INGESTA Y MOTOR SERVERLESS EN GOOGLE CLOUD (GCP)"]
+        CDN["Google Cloud Edge / Firebase Hosting\nCDN Global + Certificado SSL Automático\n[automatizacion-proy-sw.vercel.app]"]:::gcp
+        RUN_API["Cloud Run API Gateway (Serverless)\nGenerador de Signed URLs Seguras"]:::gcp
+        GCS[("Cloud Storage (Bucket GCS)\nRecepción directa PUT sin tocar RAM\n[gs://siiac-masivo-bucket/]")]:::gcp
+        EVENT["Google Eventarc + Cloud Pub/Sub\nDisparador Asíncrono Object Finalized"]:::gcp
+        JOBS["Cloud Run Jobs (Batch Worker)\nLectura por Streams en Chunks de 5,000\nMemoria RAM controlada < 60 MB"]:::gcp
+    end
+
+    subgraph StagingZone["3. CAPA STAGING & CONTROL DE CALIDAD DE DATOS"]
+        GATEWAY{"Quality Gate & Validador de Negocio\nFiltra montos negativos y fechas corruptas"}:::staging
+        ERR[("Cuarentena: staging.import_errors\nFila, Columna, Código y Motivo\n(REJECT BUCKET NO DESTRUCTIVO)")]:::staging
+        STG[("Capa Staging en Cloud SQL PostgreSQL\nstaging.infracciones_raw\nstaging.transacciones_raw\n(Inserción COPY FROM STDIN en < 8s)")]:::staging
+    end
+
+    subgraph CoreEngine["4. MOTOR ETL & CORE TRANSACCIONAL (3NF - ACID)"]
+        ETL["Stored Procedure: execute_full_etl_pipeline\nDeduplicación Criptográfica Hash SHA-256 (CDC)\n0 Registros Duplicados en Reejecución"]:::core
+        C_CIT[("public.citizens\nPadrón Unificado")]:::core
+        C_TIC[("public.tickets\nPapeletas y Multas RSA")]:::core
+        C_PAY[("public.payments\nPagos Caja y Bancos")]:::core
+        C_INT[("public.interest_charges\nIntereses Coactivos")]:::core
+    end
+
+    subgraph ServingZone["5. CAPA DE EXPLOITACIÓN & ATENCIÓN CIUDADANA"]
+        VIEW["Vista SQL: consolidated_tickets_view\nCTEs Separadas (Cero Producto Cartesiano)\nSaldo = Base + Intereses - Pagos"]:::ui
+        UI_CONSULTA["Atención al Ciudadano (/consulta)\nBúsqueda unificada por DNI/RUC/Placa\nExpediente municipal multiarea"]:::ui
+        UI_DASH["Dashboard Ejecutivo (/dashboard)\nSalud de las 5 Fuentes y KPIs en Vivo"]:::ui
+        UI_MESA["Mesa de Partes & Digitación (/operaciones)\nCaptura en vivo y Benchmark >100K\nOperador: Gabriel Cabana"]:::ui
+    end
+
+    F1 & F2 & F3 --> RUN_API
+    F4 & F5 --> CDN
+    F6 -->|1. PUT Directo via Signed URL| GCS
+    CDN --> RUN_API
+    RUN_API -->|Token Seguro| GCS
+    GCS -->|2. Notificación Asíncrona| EVENT
+    EVENT -->|3. Invoca Tarea Batch| JOBS
+
+    JOBS --> GATEWAY
+    GATEWAY -->|Filas con Error| ERR
+    GATEWAY -->|Filas Válidas en Lotes| STG
+
+    STG -->|4. Pipeline ETL Transaccional| ETL
+    ETL --> C_CIT & C_TIC & C_PAY & C_INT
+
+    C_CIT & C_TIC & C_PAY & C_INT --> VIEW
+    VIEW --> UI_CONSULTA & UI_DASH & UI_MESA
+    </div>
+  </div>
+
+  <div class="header">
+    <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 12px 0;">Detalle Técnico del Stack Tecnológico</h2>
+  </div>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <h3 style="color: #38bdf8;">☁️ Google Cloud Run & Jobs</h3>
+      <p>Servicios serverless que escalan a cero. <span class="code-tag">Cloud Run Jobs</span> procesa el lote masivo en segundo plano por hasta 24 horas continuas con memoria dedicada, evitando timeouts HTTP de 60 segundos.</p>
+    </div>
+
+    <div class="stack-card">
+      <h3 style="color: #34d399;">🪣 Google Cloud Storage</h3>
+      <p>Recepción directa de archivos pesados (500K filas x 30 columnas) mediante <span class="code-tag">Signed URLs</span>. El archivo nunca pasa por la memoria RAM del servidor web, eliminando el error <span class="code-tag">Heap Out-of-Memory</span>.</p>
+    </div>
+
+    <div class="stack-card">
+      <h3 style="color: #fb923c;">🛡️ Capa Staging & Cuarentena</h3>
+      <p>Aislamiento no destructivo en <span class="code-tag">staging.import_errors</span>. Las filas corruptas no abortan el lote, permitiendo procesar las válidas con estado <span class="code-tag">COMPLETADO_CON_ERRORES</span>.</p>
+    </div>
+
+    <div class="stack-card">
+      <h3 style="color: #a78bfa;">🔐 Deduplicación Criptográfica</h3>
+      <p>Change Data Capture (CDC) mediante hash <span class="code-tag">SHA-256 / MD5</span>. Si el archivo se procesa dos veces, las inserciones son exactamente 0, garantizando <strong style="color: #ffffff;">idempotencia estricta</strong>.</p>
+    </div>
+
+    <div class="stack-card">
+      <h3 style="color: #2dd4bf;">⚡ Eliminación Producto Cartesiano</h3>
+      <p>La vista <span class="code-tag">consolidated_tickets_view</span> agrupa pagos e intereses en CTEs separadas antes del JOIN, evitando que <span class="code-tag">M pagos x N intereses</span> multipliquen el saldo adeudado.</p>
+    </div>
+
+    <div class="stack-card">
+      <h3 style="color: #f472b6;">🌐 Frontend React 18 + Vite</h3>
+      <p>Desplegado en producción sobre CDN perimetral con routing SPA blindado. Incluye Mesa de Partes en vivo, módulo de 3 áreas y monitor de benchmark (>100K) con operador <strong style="color: #ffffff;">Gabriel Cabana</strong>.</p>
+    </div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis'
+      }
+    });
+
+    function downloadSvg() {
+      const svg = document.querySelector('.mermaid svg');
+      if (!svg) return alert('El diagrama aún está renderizándose.');
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'arquitectura_siiac_gcp_gabriel_cabana.svg';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function downloadPng() {
+      const svg = document.querySelector('.mermaid svg');
+      if (!svg) return alert('El diagrama aún está renderizándose.');
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      
+      img.onload = function() {
+        const scale = 2; // Alta resolución (2x Retina)
+        canvas.width = (svg.clientWidth || 1400) * scale;
+        canvas.height = (svg.clientHeight || 900) * scale;
+        ctx.fillStyle = '#090d16';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'arquitectura_siiac_gcp_gabriel_cabana.png';
+        a.click();
+      };
+      img.src = url;
+    }
+  </script>
+</body>
+</html>
+
