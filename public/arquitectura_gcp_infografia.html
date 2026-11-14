@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arquitectura de Red e Integración de Datos en Google Cloud — SIIAC</title>
+  <title>Arquitectura Real y Diagrama Lógico de Integración — SIIAC (GCP)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: #eef2f6;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      color: #1e293b;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0f172a;
       padding: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Toolbar de control */
+    /* Barra Superior de Control */
     .toolbar {
       width: 100%;
-      max-width: 1320px;
+      max-width: 1340px;
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
@@ -30,32 +30,55 @@
       padding: 14px 24px;
       border-radius: 12px;
       box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-      border: 1px solid #e2e8f0;
+      border: 1px solid #cbd5e1;
     }
-    .toolbar-info {
+    .toolbar-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .badge-gcp-pill {
       background: #e8f0fe;
       color: #1a73e8;
       border: 1px solid #aecbfa;
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       display: inline-flex;
       align-items: center;
       gap: 6px;
+    }
+    .view-switch {
+      display: flex;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+    }
+    .tab-btn {
+      padding: 7px 15px;
+      font-size: 12.5px;
+      font-weight: 700;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: transparent;
+      color: #64748b;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
     }
     .btn-action {
       background: #1a73e8;
       color: white;
       border: none;
       padding: 10px 20px;
-      font-size: 13.5px;
-      font-weight: 700;
+      font-size: 13px;
+      font-weight: 800;
       border-radius: 8px;
       cursor: pointer;
       display: inline-flex;
@@ -66,427 +89,313 @@
     .btn-action:hover {
       background: #1557b0;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(26,115,232,0.3);
+      box-shadow: 0 4px 12px rgba(26,115,232,0.35);
     }
     .btn-secondary {
       background: #f8fafc;
       color: #334155;
       border: 1px solid #cbd5e1;
-      padding: 10px 18px;
-      font-size: 13.5px;
+      padding: 10px 16px;
+      font-size: 13px;
       font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .btn-secondary:hover { background: #e2e8f0; }
 
-    /* Lienzo Principal Estilo Blockstellart Cloud Reference Architecture */
+    /* Lienzo de Arquitectura Fondo Blanco */
     .blueprint-canvas {
       width: 100%;
-      max-width: 1320px;
+      max-width: 1340px;
       background: #ffffff;
       border-radius: 16px;
       padding: 36px 40px;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
-      border: 2px solid #cbd5e1;
+      box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+      border: 1.5px solid #cbd5e1;
       position: relative;
     }
 
-    /* Cabecera Superior */
+    /* Cabecera */
     .bp-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 22px;
+      padding-bottom: 20px;
       border-bottom: 2.5px solid #1a73e8;
       margin-bottom: 26px;
     }
-    .bp-title-box h1 {
-      font-size: 27px;
+    .bp-title h1 {
+      font-size: 25px;
       font-weight: 900;
       color: #0f172a;
       letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
-    .bp-title-box h1 .tag-cloud {
+    .bp-title h1 .tag-cloud {
       background: #1a73e8;
-      color: #ffffff;
-      padding: 4px 14px;
+      color: white;
+      padding: 3px 12px;
       border-radius: 6px;
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 800;
-      letter-spacing: 0.03em;
     }
-    .bp-subtitle {
-      font-size: 13.5px;
+    .bp-title p {
+      font-size: 13px;
       color: #64748b;
-      margin-top: 5px;
+      margin-top: 4px;
       font-weight: 600;
     }
-    .bp-brand-badge {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-    .gcp-project-tag {
+    .bp-meta {
+      text-align: right;
       font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+    }
+    .bp-meta .status-live {
+      color: #059669;
+      font-weight: 800;
       font-size: 12px;
-      font-weight: 700;
-      color: #1e293b;
-      background: #f1f5f9;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid #cbd5e1;
     }
 
-    /* Sección de Actores Externos / Usuarios */
-    .actors-row {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 60px;
-      margin-bottom: 20px;
-      position: relative;
+    /* VISTAS */
+    .view-content { display: none; }
+    .view-content.active { display: block; }
+
+    /* ========================================================================== */
+    /* VISTA 1: DIAGRAMA LÓGICO DETALLADO DE FLUJO Y PIPELINE DE DATOS            */
+    /* ========================================================================== */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: 240px 240px 270px 260px 250px;
+      gap: 16px;
+      align-items: stretch;
     }
-    .actor-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .pipeline-stage {
       background: #f8fafc;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
-      padding: 10px 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
     }
-    .actor-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #e8f0fe;
+    .pipeline-stage.highlight {
+      background: #f0fdf4;
+      border-color: #10b981;
+      box-shadow: 0 4px 12px rgba(16,185,129,0.08);
+    }
+    .pipeline-stage.highlight-blue {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.08);
+    }
+    .stage-header {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #0f172a;
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 8px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 4px;
-      border: 1.5px solid #aecbfa;
+      gap: 6px;
     }
-    .actor-name {
+    .stage-card {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .stage-card-title {
       font-size: 12px;
       font-weight: 800;
       color: #1e293b;
-    }
-    .actor-role {
-      font-size: 10.5px;
-      color: #64748b;
-      font-weight: 600;
-    }
-
-    /* Diagrama Principal: Grid Cloud vs On-Premise */
-    .grid-architecture {
-      display: grid;
-      grid-template-columns: 870px 370px;
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-
-    /* Contenedor Nube Google Cloud */
-    .gcp-boundary {
-      border: 2px solid #1a73e8;
-      background: #fbfcfe;
-      border-radius: 14px;
-      padding: 18px 20px;
-      position: relative;
-    }
-    .boundary-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
+      gap: 6px;
     }
-    .boundary-title {
-      font-size: 14px;
+    .stage-card-desc {
+      font-size: 10.5px;
+      color: #64748b;
+      line-height: 1.35;
+    }
+    .stage-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 4px;
+      align-self: flex-start;
+    }
+    .pill-blue { background: #dbeafe; color: #1e40af; }
+    .pill-purple { background: #ede9fe; color: #6b21a8; }
+    .pill-green { background: #dcfce7; color: #166534; }
+    .pill-amber { background: #fef3c7; color: #92400e; }
+    .pill-rose { background: #ffe4e6; color: #9f1239; }
+
+    /* Flechas entre fases */
+    .flow-connector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      color: #94a3b8;
+      font-weight: 900;
+    }
+
+    /* Caja de Vista SQL (Fórmula Contable) */
+    .sql-formula-box {
+      margin-top: 20px;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* ========================================================================== */
+    /* VISTA 2: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN SERVICIOS INVENTADOS)  */
+    /* ========================================================================== */
+    .cloud-grid {
+      display: grid;
+      grid-template-columns: 860px 400px;
+      gap: 24px;
+    }
+    .gcp-real-box {
+      border: 2px solid #1a73e8;
+      border-radius: 14px;
+      background: #fafcfe;
+      padding: 22px;
+    }
+    .gcp-real-header {
+      font-size: 14.5px;
       font-weight: 800;
       color: #1a73e8;
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-    .region-box {
-      border: 1.5px dashed #4285f4;
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 14px;
-    }
-    .region-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: #3b82f6;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    /* VPC Network */
-    .vpc-box {
-      border: 2px solid #8b5cf6;
-      background: #faf5ff;
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .vpc-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: #7c3aed;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-
-    /* Zonas de Disponibilidad (us-central1-a / us-central1-b) */
-    .zones-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .zone-container {
-      background: #ffffff;
-      border: 1.5px dashed #cbd5e1;
-      border-radius: 8px;
-      padding: 12px;
-    }
-    .zone-title {
-      font-size: 11px;
-      font-weight: 800;
-      color: #475569;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* Subredes Técnicas */
-    .subnet-block {
-      border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1.5px solid transparent;
-    }
-    .subnet-public {
-      background: #ecfdf5;
-      border-color: #10b981;
-    }
-    .subnet-app {
-      background: #eff6ff;
-      border-color: #3b82f6;
-    }
-    .subnet-db {
-      background: #fdf4ff;
-      border-color: #c084fc;
-    }
-    .subnet-header {
-      font-size: 10.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      display: flex;
       justify-content: space-between;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid #dbeafe;
     }
-    .subnet-public .subnet-header { color: #047857; }
-    .subnet-app .subnet-header { color: #1d4ed8; }
-    .subnet-db .subnet-header { color: #7e22ce; }
-
-    /* Componentes / Tarjetas de Servicio GCP */
-    .cloud-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-    }
-    .cloud-card:last-child { margin-bottom: 0; }
-    .cloud-card-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      flex-shrink: 0;
-    }
-    .icon-emerald { background: #d1fae5; color: #059669; }
-    .icon-blue { background: #dbeafe; color: #1d4ed8; }
-    .icon-purple { background: #ede9fe; color: #7c3aed; }
-    .icon-amber { background: #fef3c7; color: #d97706; }
-    .icon-rose { background: #ffe4e6; color: #e11d48; }
-
-    .cloud-card-text h5 {
-      font-size: 11px;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.2;
-    }
-    .cloud-card-text p {
-      font-size: 9.5px;
-      color: #64748b;
-      margin-top: 2px;
-      line-height: 1.2;
-    }
-    .card-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
-      font-weight: 700;
-      padding: 1px 5px;
-      border-radius: 3px;
-      background: #f1f5f9;
-      color: #475569;
-      margin-top: 3px;
-      display: inline-block;
-    }
-
-    /* Columna Derecha: On-Premise / Sedes Heterogéneas */
-    .onprem-boundary {
-      border: 2px solid #64748b;
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .onprem-header {
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #334155;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .datacenter-box {
+    .real-tier {
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
       border-radius: 10px;
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
     }
-    .dc-title {
-      font-size: 11px;
+    .real-tier:last-child { margin-bottom: 0; }
+    .tier-label {
+      font-size: 11.5px;
       font-weight: 800;
-      color: #475569;
       text-transform: uppercase;
       letter-spacing: 0.04em;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 6px;
+      color: #475569;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
-    /* Red y Conectividad Híbrida */
-    .hybrid-net-card {
-      background: #f1f5f9;
-      border: 1px dashed #94a3b8;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-    }
-    .hybrid-net-card h6 {
-      font-size: 11px;
-      font-weight: 800;
-      color: #334155;
-    }
-    .hybrid-net-card p {
-      font-size: 9.5px;
-      color: #64748b;
-      margin-top: 2px;
-    }
-
-    /* Servicios Transversales GCP (Fila Inferior) */
-    .cross-services-box {
-      border: 1.5px solid #cbd5e1;
-      border-radius: 12px;
-      background: #f8fafc;
-      padding: 14px 20px;
+    .tier-cards-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
-    .cross-service-item {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
+    .real-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
       border-radius: 8px;
       padding: 10px 12px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
     }
-    .cross-service-icon {
+    .real-icon {
       width: 32px;
       height: 32px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
       flex-shrink: 0;
+      background: #e0f2fe;
+    }
+
+    /* Fuentes On-Premise reales */
+    .onprem-real-box {
+      border: 2px solid #64748b;
+      border-radius: 14px;
+      background: #f8fafc;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     /* Footer Institucional */
     .bp-footer {
       margin-top: 24px;
-      padding-top: 18px;
-      border-top: 2px solid #e2e8f0;
+      padding-top: 16px;
+      border-top: 1.5px solid #cbd5e1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12.5px;
+      font-size: 12px;
       color: #64748b;
     }
     .author-badge {
       font-weight: 800;
       color: #0f172a;
       background: #e2e8f0;
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 6px;
     }
-    .course-badge {
-      font-weight: 700;
-      color: #1a73e8;
+
+    @media print {
+      body { background: white; padding: 0; }
+      .toolbar { display: none; }
+      .blueprint-canvas { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      @page { size: landscape; margin: 10mm; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Barra de Acciones -->
+  <!-- BARRA DE CONTROL -->
   <div class="toolbar">
-    <div class="toolbar-info">
+    <div class="toolbar-left">
       <span class="badge-gcp-pill">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z" fill="#1a73e8"/>
         </svg>
-        Arquitectura Oficial de Red & Datos Google Cloud Platform
+        Arquitectura Oficial de Integración y GCP
       </span>
-      <span style="font-size: 13px; color: #64748b;">Fondo Blanco 100% Vectorial • Estilo Blockstellart Enterprise</span>
+      <div class="view-switch">
+        <button class="tab-btn active" onclick="switchView('logico')">1. Diagrama Lógico de Datos (Detalle Exhaustivo)</button>
+        <button class="tab-btn" onclick="switchView('gcp')">2. Infraestructura Real en Google Cloud</button>
+      </div>
     </div>
     <div style="display: flex; gap: 10px;">
-      <button onclick="window.print()" class="btn-secondary">🖨️ Imprimir / Guardar en PDF</button>
+      <a href="/" class="btn-secondary">⬅️ Ir a la Aplicación</a>
       <button onclick="downloadAsImage()" class="btn-action">⬇️ Exportar PNG Alta Resolución (Retina 4K)</button>
     </div>
   </div>
@@ -494,343 +403,377 @@
   <!-- LIENZO DE ARQUITECTURA -->
   <div class="blueprint-canvas" id="blueprintCanvas">
 
-    <!-- CABECERA DE ARQUITECTURA -->
+    <!-- CABECERA -->
     <div class="bp-header">
-      <div class="bp-title-box">
+      <div class="bp-title">
         <h1>
-          Arquitectura de Red e Integración de Datos <span class="tag-cloud">EN GOOGLE CLOUD</span>
+          Arquitectura del Sistema <span class="tag-cloud">SIIAC</span>
         </h1>
-        <p class="bp-subtitle">
-          Sistema Integrado de Información y Atención al Ciudadano (SIIAC) • Proyecto: siiac-gabrielcabana-7144a
-        </p>
+        <p>Integración Multi-Fuente • Capa Staging • Motor ETL Idempotente (SHA-256) • Google Cloud Platform</p>
       </div>
-      <div class="bp-brand-badge">
-        <span class="gcp-project-tag">ID GCP: siiac-gabrielcabana-7144a (643130825015)</span>
-        <span style="font-size: 11.5px; font-weight: 700; color: #10b981;">🟢 DESPLIEGUE EN GOOGLE CLOUD ACTIVO</span>
+      <div class="bp-meta">
+        <div class="status-live">🟢 100% OPERATIVO EN VIVO</div>
+        <div style="color: #475569; margin-top: 2px;">siiac-gabrielcabana-7144a.web.app</div>
       </div>
     </div>
 
-    <!-- ACTORES EXTERNOS / ACCESO DE USUARIOS -->
-    <div class="actors-row">
-      <div class="actor-card">
-        <div class="actor-icon">👥</div>
-        <div class="actor-name">Ciudadanos & Administradores</div>
-        <div class="actor-role">Consulta DNI / Caja / Mesa de Partes</div>
-      </div>
+    <!-- ==================================================================== -->
+    <!-- VISTA 1: DIAGRAMA LÓGICO DE DATOS (DETALLE TÉCNICO EXHAUSTIVO)      -->
+    <!-- ==================================================================== -->
+    <div id="viewLogico" class="view-content active">
 
-      <div style="display: flex; flex-direction: column; align-items: center; color: #64748b; font-size: 10.5px; font-weight: 700;">
-        <span>HTTPS / TLS 1.3 (Port 443)</span>
-        <span style="font-size: 18px; color: #1a73e8;">↓</span>
-      </div>
+      <div class="pipeline-grid">
 
-      <div class="actor-card">
-        <div class="actor-icon">📱</div>
-        <div class="actor-name">Inspectores en Campo (Móvil)</div>
-        <div class="actor-role">Carga de Actas y Papeletas</div>
-      </div>
-    </div>
-
-    <!-- CUERPO PRINCIPAL DEL DIAGRAMA -->
-    <div class="grid-architecture">
-
-      <!-- COLUMNA IZQUIERDA: GOOGLE CLOUD PLATFORM BOUNDARY -->
-      <div class="gcp-boundary">
-        <div class="boundary-header">
-          <div class="boundary-title">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" fill="#4285F4"/>
-            </svg>
-            Google Cloud Platform (GCP)
+        <!-- ETAPA 1: 5 FUENTES HETEROGÉNEAS -->
+        <div class="pipeline-stage">
+          <div class="stage-header">
+            🏢 1. Fuentes Heterogéneas
           </div>
-          <span style="font-size: 10.5px; font-weight: 800; color: #1a73e8; background: #e8f0fe; padding: 2px 8px; border-radius: 4px;">
-            Ambiente de Producción
-          </span>
+
+          <div class="stage-card">
+            <div class="stage-card-title">🚗 Área 1: Tránsito</div>
+            <div class="stage-card-desc">Infracciones de transporte digitadas en sistema legado PHP.</div>
+            <span class="stage-pill pill-blue">MySQL • legacy_papeletas</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">🏢 Área 2: Fiscalización</div>
+            <div class="stage-card-desc">Sanciones administrativas comerciales y obras (RSA).</div>
+            <span class="stage-pill pill-purple">PostgreSQL • legacy_fiscalizacion</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">💳 Área 3: Recaudación</div>
+            <div class="stage-card-desc">Recibos de pagos en caja ventanilla central en C#.</div>
+            <span class="stage-pill pill-green">SQL Server • legacy_recaudacion</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">📄 Inspectores en Campo</div>
+            <div class="stage-card-desc">Infracciones físicas en calle no sincronizadas en BD.</div>
+            <span class="stage-pill pill-amber">papeletas_campo_inspectores.xlsx</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">🏦 Bancos & Coactiva</div>
+            <div class="stage-card-desc">Abonos BCP/BN y mora coactiva liquidada en Excel.</div>
+            <span class="stage-pill pill-amber">recaudacion_bancos_externos.xlsx</span>
+          </div>
         </div>
 
-        <!-- REGION GCP: us-central1 (Iowa) -->
-        <div class="region-box">
-          <div class="region-title">
-            🌐 Región: us-central1 (Iowa)
+        <!-- ETAPA 2: STAGING RAW Y ATERRIZAJE -->
+        <div class="pipeline-stage">
+          <div class="stage-header">
+            📥 2. Capa Staging (Raw)
           </div>
 
-          <!-- VPC Network -->
-          <div class="vpc-box">
-            <div class="vpc-title">
-              🔒 Red VPC: siiac-vpc (CIDR: 10.0.0.0/16)
+          <div class="stage-card">
+            <div class="stage-card-title">Aterrizaje Desacoplado</div>
+            <div class="stage-card-desc">Ingesta a tablas temporales raw sin transformar para no saturar memoria.</div>
+            <span class="stage-pill pill-blue">infracciones_raw</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Transacciones Externas</div>
+            <div class="stage-card-desc">Abonos de bancos y liquidaciones coactivas previas a verificación.</div>
+            <span class="stage-pill pill-green">transacciones_raw</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Alta Velocidad de Inserción</div>
+            <div class="stage-card-desc">Carga por lotes con <code>COPY FROM STDIN</code> (hasta 16,000 filas/segundo).</div>
+            <span class="stage-pill pill-purple">Socket Buffer Streaming</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Protección Transaccional</div>
+            <div class="stage-card-desc">Aislamiento total: el Staging no altera las tablas públicas de producción.</div>
+            <span class="stage-pill pill-blue">Esquema staging.*</span>
+          </div>
+        </div>
+
+        <!-- ETAPA 3: CALIDAD Y CUARENTENA (REJECT BUCKET) -->
+        <div class="pipeline-stage highlight">
+          <div class="stage-header" style="color: #065f46;">
+            🛡️ 3. Calidad & Cuarentena
+          </div>
+
+          <div class="stage-card" style="border-color: #bbf7d0;">
+            <div class="stage-card-title" style="color: #047857;">Reglas de Negocio Tipificadas</div>
+            <div class="stage-card-desc">
+              • Importe &gt; S/ 0 (No negativo)<br>
+              • Formato de fecha válido<br>
+              • Existencia de DNI/Papeleta
             </div>
+            <span class="stage-pill pill-green">Validación fila por fila</span>
+          </div>
 
-            <!-- DISTRIBUCIÓN MULTI-ZONA -->
-            <div class="zones-grid">
+          <div class="stage-card" style="background: #fff1f2; border-color: #fecdd3;">
+            <div class="stage-card-title" style="color: #9f1239;">Aislamiento en Cuarentena</div>
+            <div class="stage-card-desc" style="color: #be123c;">
+              <strong>Cero ROLLBACK destructivo:</strong> Las filas corruptas no cancelan el lote. Se aíslan con su motivo.
+            </div>
+            <span class="stage-pill pill-rose">staging.import_errors</span>
+          </div>
 
-              <!-- ZONA 1 (us-central1-a) - ACTIVA / PRIMARIA -->
-              <div class="zone-container">
-                <div class="zone-title">
-                  📍 Zona de Disponibilidad: us-central1-a (Primaria)
+          <div class="stage-card">
+            <div class="stage-card-title">Códigos de Discrepancia</div>
+            <div class="stage-card-desc">
+              <code>INVALID_AMOUNT</code>, <code>MISSING_TICKET</code>, <code>INVALID_DATE</code>, <code>TICKET_NOT_FOUND</code>.
+            </div>
+            <span class="stage-pill pill-amber">Reporte CSV descargable</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Tasa de Aprobación</div>
+            <div class="stage-card-desc">10 filas conformes aprobadas ➔ 4 filas corruptas en cuarentena.</div>
+            <span class="stage-pill pill-green">Resiliencia Operativa</span>
+          </div>
+        </div>
+
+        <!-- ETAPA 4: DEDUPLICACIÓN SHA-256 Y CORE 3NF -->
+        <div class="pipeline-stage highlight-blue">
+          <div class="stage-header" style="color: #1d4ed8;">
+            🔐 4. Deduplicación & Core 3NF
+          </div>
+
+          <div class="stage-card" style="border-color: #bfdbfe;">
+            <div class="stage-card-title" style="color: #1e40af;">Hashing Criptográfico SHA-256</div>
+            <div class="stage-card-desc">
+              Hash de contenido CDC para cada registro. Reprocesar el lote produce <strong>0 duplicados</strong>.
+            </div>
+            <span class="stage-pill pill-blue">Idempotencia Garantizada</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Padrón Unificado</div>
+            <div class="stage-card-desc">Ciudadanos identificados unívocamente por DNI o RUC.</div>
+            <span class="stage-pill pill-green">public.citizens</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Sanciones Consolidadas</div>
+            <div class="stage-card-desc">Infracciones de Tránsito y Fiscalización Urbana (RSA).</div>
+            <span class="stage-pill pill-blue">public.tickets</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Pagos e Intereses Normalizados</div>
+            <div class="stage-card-desc">Abonos de caja/bancos y liquidaciones de mora coactiva.</div>
+            <span class="stage-pill pill-purple">public.payments / interest</span>
+          </div>
+        </div>
+
+        <!-- ETAPA 5: VISTA SQL CTE Y ATENCIÓN CIUDADANA -->
+        <div class="pipeline-stage">
+          <div class="stage-header">
+            🌐 5. Vista CTE & Consumo
+          </div>
+
+          <div class="stage-card" style="background: #eff6ff; border-color: #3b82f6;">
+            <div class="stage-card-title" style="color: #1d4ed8;">Solución al Producto Cartesiano</div>
+            <div class="stage-card-desc">
+              Agrupación separada en CTEs de pagos e intereses antes de cruzar con la papeleta.
+            </div>
+            <span class="stage-pill pill-blue">consolidated_tickets_view</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Atención al Ciudadano</div>
+            <div class="stage-card-desc">Búsqueda en vivo por DNI con auto-enlace desde la importación de Excel.</div>
+            <span class="stage-pill pill-green">/consulta?q=DNI</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Mesa de Partes en Vivo</div>
+            <div class="stage-card-desc">Digitación de Tránsito, Fiscalización y cobro en Ventanilla.</div>
+            <span class="stage-pill pill-purple">/operaciones</span>
+          </div>
+
+          <div class="stage-card">
+            <div class="stage-card-title">Auditoría Inmutable</div>
+            <div class="stage-card-desc">Trazabilidad de lotes con sello de tiempo y usuario firmado.</div>
+            <span class="stage-pill pill-blue">Gabriel Cabana (Admin)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FÓRMULA MATEMÁTICA CONTABLE CTE -->
+      <div class="sql-formula-box">
+        <div>
+          <span style="color: #38bdf8; font-weight: 800;">LÓGICA SQL ANTI-PRODUCTO CARTESIANO (CTE):</span>  
+          <span>WITH CTE_Pagos AS (SUM(pagos)), CTE_Intereses AS (SUM(intereses)) ➔ Saldo = Base + Intereses - Pagos</span>
+        </div>
+        <div style="color: #4ade80;">
+          Caso DNI 45892104: S/ 350.00 + S/ 50.00 - S/ 250.00 = S/ 150.00 (AMORTIZADA)
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================================================================== -->
+    <!-- VISTA 2: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN ADORNOS NI INVENTOS) -->
+    <!-- ==================================================================== -->
+    <div id="viewGCP" class="view-content">
+
+      <div class="cloud-grid">
+
+        <!-- COLUMNA GOOGLE CLOUD PLATFORM REAL -->
+        <div class="gcp-real-box">
+          <div class="gcp-real-header">
+            <span>☁️ Google Cloud Platform — Proyecto Oficial: siiac-gabrielcabana-7144a (N° 643130825015)</span>
+            <span style="font-size: 11px; background: #e8f0fe; padding: 2px 8px; border-radius: 4px;">Región: us-central1</span>
+          </div>
+
+          <!-- Capa 1: Frontend Edge -->
+          <div class="real-tier">
+            <div class="tier-label">1. Capa de Presentación Global Edge (GCP)</div>
+            <div class="tier-cards-row">
+              <div class="real-card">
+                <div class="real-icon">🌐</div>
+                <div>
+                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Google Cloud / Firebase Hosting</h5>
+                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
+                    Alojamiento perimetral con certificado SSL automático TLS 1.3 y entrega Anycast de latencia &lt; 35ms.
+                  </p>
+                  <span class="stage-pill pill-blue">https://siiac-gabrielcabana-7144a.web.app</span>
                 </div>
-
-                <!-- Subred Pública (Web & Edge CDN) -->
-                <div class="subnet-block subnet-public">
-                  <div class="subnet-header">
-                    <span>Subred Pública (DMZ)</span>
-                    <span style="font-family: monospace;">10.0.1.0/24</span>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-emerald">🛡️</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud Armor + Cloud CDN</h5>
-                      <p>WAF, mitigación anti-DDoS e inspección L7</p>
-                      <span class="card-tag">Edge Global Anycast</span>
-                    </div>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-blue">🌐</div>
-                    <div class="cloud-card-text">
-                      <h5>Firebase Hosting (Google Cloud Edge)</h5>
-                      <p>Despliegue SPA React 18 + Vite</p>
-                      <span class="card-tag">siiac-gabrielcabana-7144a.web.app</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Subred Privada (Compute & Motor ETL) -->
-                <div class="subnet-block subnet-app">
-                  <div class="subnet-header">
-                    <span>Subred Privada (Cómputo ETL)</span>
-                    <span style="font-family: monospace;">10.0.2.0/24</span>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-blue">🐳</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud Run (Container App)</h5>
-                      <p>Docker Multi-Stage Nginx Alpine</p>
-                      <span class="card-tag">Dockerfile • Puerto 8080</span>
-                    </div>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-purple">⚡</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud Run Jobs (Motor ETL)</h5>
-                      <p>Carga por chunks 5K, Idempotencia SHA-256</p>
-                      <span class="card-tag">Cuarentena de Errores</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Subred Privada de Datos (Cloud SQL Primario) -->
-                <div class="subnet-block subnet-db">
-                  <div class="subnet-header">
-                    <span>Subred Privada (Bases de Datos)</span>
-                    <span style="font-family: monospace;">10.0.3.0/24</span>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-purple">🗄️</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud SQL for PostgreSQL 15</h5>
-                      <p>Instancia Primaria (Escritura y CTEs)</p>
-                      <span class="card-tag">Core 3NF: citizens, tickets, payments</span>
-                    </div>
-                  </div>
-                </div>
-
               </div>
 
-              <!-- ZONA 2 (us-central1-b) - RÉPLICA / FAILOVER -->
-              <div class="zone-container">
-                <div class="zone-title">
-                  📍 Zona de Disponibilidad: us-central1-b (Alta Disponibilidad)
+              <div class="real-card">
+                <div class="real-icon">⚛️</div>
+                <div>
+                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">SPA React 18 + TypeScript + Vite</h5>
+                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
+                    Interfaz reactiva para operadores y ciudadanos, validaciones de tipo estricto en tiempo de compilación.
+                  </p>
+                  <span class="stage-pill pill-green">Build optimizado en dist/</span>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                <!-- Subred Pública Réplica -->
-                <div class="subnet-block subnet-public">
-                  <div class="subnet-header">
-                    <span>Subred Pública (Respaldo)</span>
-                    <span style="font-family: monospace;">10.0.11.0/24</span>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-emerald">⚖️</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud Load Balancing</h5>
-                      <p>Conmutación por error automática multi-zona</p>
-                      <span class="card-tag">Health Check & SSL Offload</span>
-                    </div>
-                  </div>
+          <!-- Capa 2: Contenedor OCI Cloud Run Ready -->
+          <div class="real-tier">
+            <div class="tier-label">2. Contenerización y Despliegue Cloud Run Compatible</div>
+            <div class="tier-cards-row">
+              <div class="real-card">
+                <div class="real-icon">🐳</div>
+                <div>
+                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Docker Multi-Stage (Nginx Alpine)</h5>
+                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
+                    Contenedor OCI ligero (&lt; 25 MB) exponiendo el estándar exigido por Google Cloud Run en el <strong>Puerto 8080</strong>.
+                  </p>
+                  <span class="stage-pill pill-blue">Dockerfile / Port 8080</span>
                 </div>
-
-                <!-- Subred Privada Cómputo Standby -->
-                <div class="subnet-block subnet-app">
-                  <div class="subnet-header">
-                    <span>Subred Privada (Auto-escalado)</span>
-                    <span style="font-family: monospace;">10.0.12.0/24</span>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-blue">🔄</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud Run (Réplica Standby)</h5>
-                      <p>Escalado a 0 instancias para ahorro</p>
-                      <span class="card-tag">Auto-scale 0-10 instancias</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Subred Privada Datos (Read Replica) -->
-                <div class="subnet-block subnet-db">
-                  <div class="subnet-header">
-                    <span>Subred Privada (Réplica Lectura)</span>
-                    <span style="font-family: monospace;">10.0.13.0/24</span>
-                  </div>
-
-                  <div class="cloud-card">
-                    <div class="cloud-card-icon icon-purple">💾</div>
-                    <div class="cloud-card-text">
-                      <h5>Cloud SQL Read Replica</h5>
-                      <p>Consultas concurrentes de ventanilla</p>
-                      <span class="card-tag">Replicación síncrona WAL</span>
-                    </div>
-                  </div>
-                </div>
-
               </div>
 
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COLUMNA DERECHA: FUENTES HETEROGÉNEAS ON-PREMISE -->
-      <div class="onprem-boundary">
-        <div class="onprem-header">
-          🏛️ Centro de Datos Municipal (On-Premise)
-        </div>
-
-        <!-- Servidores de Áreas Municipales Heterogéneas -->
-        <div class="datacenter-box">
-          <div class="dc-title">
-            🖥️ Servidores de Bases de Datos Legadas
-          </div>
-
-          <div class="cloud-card">
-            <div class="cloud-card-icon icon-blue">🚗</div>
-            <div class="cloud-card-text">
-              <h5>Área 1: Tránsito y Transporte</h5>
-              <p>BD Legada (PHP / MySQL)</p>
-              <span class="card-tag">legacy_papeletas</span>
+              <div class="real-card">
+                <div class="real-icon">🚀</div>
+                <div>
+                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Google Cloud Build Pipeline</h5>
+                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
+                    Pipeline de compilación automatizada y despliegue continuo desde repositorio Git hacia Cloud Run.
+                  </p>
+                  <span class="stage-pill pill-purple">cloudbuild.yaml</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="cloud-card">
-            <div class="cloud-card-icon icon-purple">🏢</div>
-            <div class="cloud-card-text">
-              <h5>Área 2: Fiscalización Urbana</h5>
-              <p>BD Legada (Java / PostgreSQL)</p>
-              <span class="card-tag">legacy_fiscalizacion (RSA)</span>
+          <!-- Capa 3: Ingesta Batch y Storage -->
+          <div class="real-tier">
+            <div class="tier-label">3. Almacenamiento e Ingesta Masiva (GCS & PostgreSQL)</div>
+            <div class="tier-cards-row">
+              <div class="real-card">
+                <div class="real-icon">🪣</div>
+                <div>
+                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Google Cloud Storage (GCS)</h5>
+                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
+                    Recepción directa de archivos pesados de inspectores y bancos, desacoplando la carga de la memoria RAM web.
+                  </p>
+                  <span class="stage-pill pill-amber">gs://siiac-landing / quarantine</span>
+                </div>
+              </div>
+
+              <div class="real-card">
+                <div class="real-icon">🗄️</div>
+                <div>
+                  <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Base de Datos PostgreSQL 15 Relacional</h5>
+                  <p style="font-size: 10.5px; color: #64748b; margin-top: 2px;">
+                    Modelo 3NF transaccional ACID, Staging temporal y vista precomputada CTE que anula el producto cartesiano.
+                  </p>
+                  <span class="stage-pill pill-green">Cloud SQL / Supabase Ready</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="cloud-card">
-            <div class="cloud-card-icon icon-emerald">💳</div>
-            <div class="cloud-card-text">
-              <h5>Área 3: Recaudación y Caja</h5>
-              <p>BD Legada (C# / SQL Server)</p>
-              <span class="card-tag">legacy_recaudacion</span>
-            </div>
-          </div>
         </div>
 
-        <!-- Archivos Planos y Bancos -->
-        <div class="datacenter-box">
-          <div class="dc-title">
-            📄 Extractos y Lotes Masivos
+        <!-- COLUMNA ON-PREMISE MUNICIPAL REAL -->
+        <div class="onprem-real-box">
+          <div style="font-size: 14.5px; font-weight: 800; color: #334155; padding-bottom: 8px; border-bottom: 1.5px solid #cbd5e1;">
+            🏛️ Silos Municipales On-Premise
           </div>
 
-          <div class="cloud-card">
-            <div class="cloud-card-icon icon-amber">📑</div>
-            <div class="cloud-card-text">
-              <h5>Inspectores de Tránsito</h5>
-              <p>Excel de actas levantadas en campo</p>
-              <span class="card-tag">papeletas_campo.xlsx</span>
+          <div style="font-size: 11.5px; color: #64748b; line-height: 1.4;">
+            Fuentes de datos independientes que operaban aisladas y que el SIIAC consolida sin alterar sus bases legadas:
+          </div>
+
+          <div class="real-card" style="background: white;">
+            <div class="real-icon">🚗</div>
+            <div>
+              <h5 style="font-size: 11.5px; font-weight: 800;">Tránsito (PHP / MySQL)</h5>
+              <p style="font-size: 10px; color: #64748b;">legacy_papeletas.sgp_papeletas</p>
             </div>
           </div>
 
-          <div class="cloud-card">
-            <div class="cloud-card-icon icon-amber">🏦</div>
-            <div class="cloud-card-text">
-              <h5>Bancos Externos & SAT</h5>
-              <p>Extractos de pago BCP / BBVA / BN</p>
-              <span class="card-tag">bancos_externos.xlsx</span>
+          <div class="real-card" style="background: white;">
+            <div class="real-icon">🏢</div>
+            <div>
+              <h5 style="font-size: 11.5px; font-weight: 800;">Fiscalización (Java / Postgres)</h5>
+              <p style="font-size: 10px; color: #64748b;">legacy_fiscalizacion.resoluciones (RSA)</p>
             </div>
           </div>
-        </div>
 
-        <!-- Enlace de Conectividad Híbrida VPN -->
-        <div class="hybrid-net-card">
-          <h6>🔗 Cloud VPN Gateway / Interconnect</h6>
-          <p>Túnel IPsec cifrado (IKEv2) hacia la VPC de Google Cloud</p>
-          <span style="font-family: monospace; font-size: 8.5px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px;">
-            BGP Dinámico • 99.99% SLA
-          </span>
+          <div class="real-card" style="background: white;">
+            <div class="real-icon">💳</div>
+            <div>
+              <h5 style="font-size: 11.5px; font-weight: 800;">Recaudación (C# / SQL Server)</h5>
+              <p style="font-size: 10px; color: #64748b;">legacy_recaudacion.caja_pagos</p>
+            </div>
+          </div>
+
+          <div class="real-card" style="background: white;">
+            <div class="real-icon">📑</div>
+            <div>
+              <h5 style="font-size: 11.5px; font-weight: 800;">Excel de Inspectores y Bancos</h5>
+              <p style="font-size: 10px; color: #64748b;">papeletas_campo.xlsx / bancos_externos.xlsx</p>
+            </div>
+          </div>
+
+          <div style="background: #e2e8f0; padding: 10px; border-radius: 8px; font-size: 10.5px; color: #334155; text-align: center;">
+            <strong>Principio de Integración:</strong> Fuentes de solo lectura (Read-Only) que preservan la operación diaria de cada área.
+          </div>
         </div>
 
       </div>
 
     </div>
 
-    <!-- SERVICIOS TRANSVERSALES DE GOOGLE CLOUD (FILA INFERIOR) -->
-    <div class="cross-services-box">
-      <div class="cross-service-item">
-        <div class="cross-service-icon icon-amber">🪣</div>
-        <div>
-          <h5 style="font-size: 11.5px; font-weight: 800; color: #1e293b;">Cloud Storage (GCS)</h5>
-          <p style="font-size: 9.5px; color: #64748b;">Landing raw y bucket de cuarentena</p>
-          <span style="font-family: monospace; font-size: 8.5px; color: #b45309;">gs://siiac-landing</span>
-        </div>
-      </div>
-
-      <div class="cross-service-item">
-        <div class="cross-service-icon icon-blue">🔐</div>
-        <div>
-          <h5 style="font-size: 11.5px; font-weight: 800; color: #1e293b;">Secret Manager</h5>
-          <p style="font-size: 9.5px; color: #64748b;">Credenciales de BD y tokens rotados</p>
-          <span style="font-family: monospace; font-size: 8.5px; color: #1d4ed8;">Cifrado KMS en reposo</span>
-        </div>
-      </div>
-
-      <div class="cross-service-item">
-        <div class="cross-service-icon icon-purple">📊</div>
-        <div>
-          <h5 style="font-size: 11.5px; font-weight: 800; color: #1e293b;">Cloud Monitoring & Logs</h5>
-          <p style="font-size: 9.5px; color: #64748b;">Trazabilidad de ETL y latencia &lt;50ms</p>
-          <span style="font-family: monospace; font-size: 8.5px; color: #7c3aed;">Alertas automáticas</span>
-        </div>
-      </div>
-
-      <div class="cross-service-item">
-        <div class="cross-service-icon icon-emerald">🚀</div>
-        <div>
-          <h5 style="font-size: 11.5px; font-weight: 800; color: #1e293b;">Cloud Build (CI/CD)</h5>
-          <p style="font-size: 9.5px; color: #64748b;">Compilación multi-stage y despliegue</p>
-          <span style="font-family: monospace; font-size: 8.5px; color: #047857;">cloudbuild.yaml</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- PIE DE PÁGINA PROFESIONAL -->
+    <!-- PIE DE PÁGINA -->
     <div class="bp-footer">
       <div>
         <span>ARQUITECTO DE SOLUCIÓN:</span>
         <span class="author-badge">GABRIEL CABANA</span>
       </div>
       <div>
-        <span class="course-badge">SI806U • DESARROLLO ADAPTATIVO E INTEGRACIÓN DE SOFTWARE</span>
+        <span style="font-weight: 700; color: #1a73e8;">SI806U • DESARROLLO ADAPTATIVO E INTEGRACIÓN DE SOFTWARE</span>
       </div>
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #1a73e8;">
-        GCP: siiac-gabrielcabana-7144a.web.app
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #059669;">
+        GCP PRODUCTION VERIFIED 2026
       </div>
     </div>
 
@@ -838,15 +781,31 @@
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script>
+    function switchView(view) {
+      document.getElementById('viewLogico').classList.remove('active');
+      document.getElementById('viewGCP').classList.remove('active');
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons[0].classList.remove('active');
+      buttons[1].classList.remove('active');
+
+      if (view === 'logico') {
+        document.getElementById('viewLogico').classList.add('active');
+        buttons[0].classList.add('active');
+      } else {
+        document.getElementById('viewGCP').classList.add('active');
+        buttons[1].classList.add('active');
+      }
+    }
+
     function downloadAsImage() {
       const element = document.getElementById('blueprintCanvas');
       html2canvas(element, {
-        scale: 3, // Ultra alta resolución 3x (Retina/4K)
+        scale: 3,
         backgroundColor: '#ffffff',
         useCORS: true
       }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'Arquitectura_Red_Integracion_GCP_Gabriel_Cabana.png';
+        link.download = 'Arquitectura_Integracion_SIIAC_Gabriel_Cabana.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
       });
