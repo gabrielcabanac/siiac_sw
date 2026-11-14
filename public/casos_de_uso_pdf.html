@@ -318,8 +318,8 @@
   <!-- Barra Superior con Botón de Descarga PDF -->
   <div class="no-print-bar">
     <div>
-      <span style="font-weight: 800; color: #0f172a; font-size: 15px;">Documento de Casos de Prueba y Demostración Integral</span>
-      <p style="font-size: 12px; color: #64748b; margin-top: 2px;">Listo para sustentar ante el docente o imprimir en PDF oficial</p>
+      <span style="font-weight: 800; color: #0f172a; font-size: 15px;">Expediente Técnico de Pruebas y Casos de Uso</span>
+      <p style="font-size: 12px; color: #64748b; margin-top: 2px;">Documento formal de verificación y control de calidad de software</p>
     </div>
     <div style="display: flex; gap: 10px;">
       <a href="/" class="btn-back">⬅️ Volver a la App</a>
@@ -559,7 +559,7 @@
     <!-- 3. DETALLE PASO A PASO DE LOS CASOS DE USO -->
     <h2 class="section-heading">
       <span class="badge-num">3</span>
-      Fichas de Prueba Paso a Paso para la Demostración
+      Fichas Técnicas de Ejecución de Pruebas y Validación
     </h2>
 
     <!-- CASO DE USO 1 -->
@@ -583,7 +583,7 @@
           <span class="prop-val"><span class="pill-data">45892104</span> (Carlos Mendoza Pérez).</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Ingresar al portal oficial: <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/consulta</span>.</li>
           <li>En la barra de búsqueda, ingresar el DNI <span class="pill-data">45892104</span> y presionar <strong>Buscar</strong> (o pulsar sobre el botón rápido sugerido).</li>
@@ -624,7 +624,7 @@
           <span class="prop-val"><span class="pill-data">papeletas_campo_inspectores.xlsx</span> (disponible en la carpeta de muestras).</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Ingresar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/importar</span>.</li>
           <li>Seleccionar la pestaña <strong>1. Infracciones de Campo (Inspectores)</strong>.</li>
@@ -660,7 +660,7 @@
           <span class="prop-val"><span class="pill-data">recaudacion_bancos_externos.xlsx</span>.</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>En el módulo de importación, seleccionar la pestaña <strong>2. Recaudación Externa & Coactiva</strong>.</li>
           <li>Cargar el archivo <span class="pill-data">recaudacion_bancos_externos.xlsx</span>.</li>
@@ -686,14 +686,14 @@
       </div>
       <div class="use-case-body">
         <div class="grid-props">
-          <span class="prop-name">Pregunta Docente:</span>
+          <span class="prop-name">Requerimiento Técnico Evaluado:</span>
           <span class="prop-val"><em>"¿Qué sucede si un archivo bancario o de inspectores contiene registros corruptos? ¿Se cae todo el sistema?"</em></span>
 
           <span class="prop-name">Principio:</span>
           <span class="prop-val"><strong>Resiliencia sin ROLLBACK destructivo.</strong> Si un lote de 20,000 registros contiene 4 filas corruptas, detener todo perjudica a 19,996 ciudadanos. Se aplica aislamiento selectivo a la tabla de cuarentena <code>staging.import_errors</code>.</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Durante la previsualización de <span class="pill-data">papeletas_campo_inspectores.xlsx</span>, señalar las filas resaltadas en color rojo:
             <ul style="margin-left: 20px; margin-top: 4px;">
@@ -729,7 +729,7 @@
           <span class="prop-val">Gabriel Cabana (Administrador General).</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Navegar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/operaciones</span>.</li>
           <li><strong>Pestaña 1 (Tránsito):</strong> Digitar Placa <span class="pill-data">XYZ-999</span>, DNI <span class="pill-data">45892104</span>, Falta <span class="pill-data">M-01 (S/ 515.00)</span> y presionar <em>Guardar en BD Tránsito</em>.</li>
@@ -749,7 +749,7 @@
       <div class="use-case-header">
         <div class="use-case-title">
           <span class="tag-cu">CU-06</span>
-          Ejecución del Pipeline ETL y Demostración de Idempotencia Criptográfica
+          Ejecución del Pipeline ETL y Verificación de Idempotencia Criptográfica
         </div>
         <span class="tag-module">Módulo: /etl</span>
       </div>
@@ -762,7 +762,7 @@
           <span class="prop-val">Hash CDC (Change Data Capture) calculado a partir de la tupla <code>{ticket_number, base_amount, violation_code, date}</code>.</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Ingresar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/etl</span>.</li>
           <li>Hacer clic en <strong>Ejecutar Pipeline ETL Integral</strong>.</li>
@@ -792,7 +792,7 @@
           <span class="prop-val">Garantizar que todo proceso de integración quede registrado en el libro mayor de auditoría con sello de tiempo, usuario responsable y hash inmutable del lote.</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Ingresar a <span class="pill-data">https://siiac-gabrielcabana-7144a.web.app/historial</span>.</li>
           <li>Examinar la tabla de lotes históricos:
@@ -822,14 +822,14 @@
       </div>
       <div class="use-case-body">
         <div class="grid-props">
-          <span class="prop-name">Pregunta Docente:</span>
+          <span class="prop-name">Requerimiento Técnico Evaluado:</span>
           <span class="prop-val"><em>"¿Cómo respondería la solución si la municipalidad debe procesar 100,000 o 500,000 registros de fiscalización de un solo golpe?"</em></span>
 
-          <span class="prop-name">Sustento Cloud:</span>
+          <span class="prop-name">Arquitectura Cloud de Soporte:</span>
           <span class="prop-val">Procesamiento por streams desacoplado mediante <strong>Cloud Storage</strong> (recepción por Signed URL sin tocar la RAM del servidor web) y <strong>Cloud Run Jobs</strong> (worker batch en chunks de 5,000 filas con COPY FROM STDIN).</span>
         </div>
 
-        <div><strong>Procedimiento de Demostración:</strong></div>
+        <div><strong>Procedimiento de Prueba y Pasos de Verificación:</strong></div>
         <ol class="step-list">
           <li>Ir a <span class="pill-data">/operaciones</span> y seleccionar la pestaña <strong>4. Benchmark Carga Masiva (>100K)</strong>.</li>
           <li>Seleccionar el volumen de <strong>100,000 registros</strong>.</li>

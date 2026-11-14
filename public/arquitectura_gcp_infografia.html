@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arquitectura Integral del Sistema SIIAC — Google Cloud Platform & ETL</title>
+  <title>Arquitectura de Integración Multi-Fuente, Motor ETL y Google Cloud — SIIAC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
@@ -21,7 +21,7 @@
     /* Barra Superior */
     .toolbar {
       width: 100%;
-      max-width: 1400px;
+      max-width: 1420px;
       margin-bottom: 20px;
       display: flex;
       justify-content: space-between;
@@ -79,19 +79,19 @@
     }
     .btn-secondary:hover { background: #e2e8f0; }
 
-    /* Lienzo de Arquitectura */
+    /* Lienzo de Arquitectura Fondo Blanco */
     .blueprint-canvas {
       width: 100%;
-      max-width: 1400px;
+      max-width: 1420px;
       background: #ffffff;
       border-radius: 16px;
       padding: 34px 38px;
       box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
-      border: 1.5px solid #cbd5e1;
+      border: 2px solid #cbd5e1;
       position: relative;
     }
 
-    /* Cabecera */
+    /* Cabecera Principal */
     .bp-header {
       display: flex;
       justify-content: space-between;
@@ -118,7 +118,7 @@
       font-weight: 800;
     }
     .bp-title p {
-      font-size: 12.5px;
+      font-size: 13px;
       color: #64748b;
       margin-top: 4px;
       font-weight: 600;
@@ -134,87 +134,41 @@
       font-size: 12px;
     }
 
-    /* SECCIÓN 1: INFRAESTRUCTURA REAL EN GOOGLE CLOUD */
-    .section-box {
-      border: 1.5px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 22px;
-      background: #fbfcfe;
+    /* SECCIÓN 1: MOTOR ETL Y PIPELINE DE INTEGRACIÓN (VISUAL & COMPLETO) */
+    .etl-master-box {
+      border: 2px solid #0284c7;
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.06);
     }
-    .section-title {
-      font-size: 12px;
-      font-weight: 800;
+    .etl-master-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 18px;
+    }
+    .etl-master-title {
+      font-size: 14px;
+      font-weight: 900;
+      color: #0284c7;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: #1a73e8;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    .gcp-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-    .gcp-service-card {
-      background: #ffffff;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 12px;
-      display: flex;
-      gap: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    }
-    .service-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      flex-shrink: 0;
-    }
-    .icon-blue { background: #e0f2fe; color: #0369a1; }
-    .icon-green { background: #dcfce7; color: #15803d; }
-    .icon-purple { background: #ede9fe; color: #6b21a8; }
-    .icon-amber { background: #fef3c7; color: #b45309; }
-
-    .gcp-service-info h5 {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.25;
-    }
-    .gcp-service-info p {
-      font-size: 10px;
-      color: #64748b;
-      margin-top: 3px;
-      line-height: 1.3;
-    }
-    .service-pill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 1px 5px;
-      border-radius: 3px;
-      margin-top: 4px;
-      display: inline-block;
+      gap: 8px;
     }
 
-    /* SECCIÓN 2: PIPELINE ETL Y MOTOR DE INTEGRACIÓN MULTI-FUENTE */
-    .etl-pipeline-grid {
+    .pipeline-flow-grid {
       display: grid;
       grid-template-columns: 240px 240px 270px 270px 260px;
       gap: 14px;
       align-items: stretch;
-      margin-bottom: 20px;
     }
-    .pipeline-col {
+    .stage-column {
       background: #f8fafc;
       border: 1.5px solid #cbd5e1;
       border-radius: 10px;
@@ -223,15 +177,19 @@
       flex-direction: column;
       gap: 10px;
     }
-    .pipeline-col.highlight-green {
+    .stage-column.stage-quarantine {
+      background: #fff1f2;
+      border-color: #f43f5e;
+    }
+    .stage-column.stage-dedup {
       background: #f0fdf4;
       border-color: #10b981;
     }
-    .pipeline-col.highlight-blue {
+    .stage-column.stage-core {
       background: #eff6ff;
       border-color: #3b82f6;
     }
-    .col-header {
+    .stage-badge {
       font-size: 11px;
       font-weight: 800;
       text-transform: uppercase;
@@ -241,39 +199,95 @@
       padding-bottom: 6px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
-    .item-card {
+    .flow-card {
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
       border-radius: 6px;
-      padding: 8px 10px;
+      padding: 9px 11px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 3px;
     }
-    .item-title {
+    .flow-card-title {
       font-size: 11.5px;
       font-weight: 800;
-      color: #1e293b;
+      color: #0f172a;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
-    .item-desc {
+    .flow-card-desc {
       font-size: 10px;
       color: #64748b;
-      line-height: 1.3;
+      line-height: 1.35;
+    }
+    .flow-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+      display: inline-block;
+      align-self: flex-start;
     }
 
-    /* Fila Inferior con Fórmula Contable y Solución al Producto Cartesiano */
+    /* SECCIÓN 2: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN SERVICIOS INVENTADOS) */
+    .gcp-infra-box {
+      border: 2px solid #1a73e8;
+      border-radius: 14px;
+      background: #f8fbff;
+      padding: 20px;
+      margin-bottom: 22px;
+    }
+    .gcp-infra-header {
+      font-size: 13px;
+      font-weight: 900;
+      color: #1a73e8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid #dbeafe;
+      margin-bottom: 16px;
+    }
+    .gcp-services-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .service-box {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .service-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    /* BANNER DE FÓRMULA MATEMÁTICA Y PRODUCTO CARTESIANO */
     .formula-banner {
       background: #0f172a;
       color: #e2e8f0;
       border-radius: 10px;
-      padding: 14px 20px;
+      padding: 16px 22px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -283,20 +297,20 @@
     /* Pie de página */
     .bp-footer {
       margin-top: 22px;
-      padding-top: 14px;
+      padding-top: 16px;
       border-top: 1.5px solid #cbd5e1;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
+      font-size: 12.5px;
       color: #64748b;
     }
     .author-badge {
       font-weight: 800;
       color: #0f172a;
       background: #e2e8f0;
-      padding: 3px 8px;
-      border-radius: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
     }
 
     @media print {
@@ -309,16 +323,16 @@
 </head>
 <body>
 
-  <!-- BARRA DE ACCIÓN -->
+  <!-- BARRA DE ACCIÓN SUPERIOR -->
   <div class="toolbar">
-    <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 14px;">
       <span class="badge-gcp-pill">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
           <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z" fill="#1a73e8"/>
         </svg>
-        Arquitectura Integral del Sistema SIIAC: Nube Google Cloud & Pipeline ETL
+        Arquitectura Oficial de Integración de Datos, Motor ETL y Google Cloud
       </span>
-      <span style="font-size: 12.5px; color: #64748b;">Todo visible en una sola lámina oficial para el docente</span>
+      <span style="font-size: 13px; color: #64748b;">Lámina Única Completa para Evaluación Docente</span>
     </div>
     <div style="display: flex; gap: 10px;">
       <a href="/casos_de_uso_pdf.html" class="btn-secondary">📄 Ver Casos de Uso (PDF)</a>
@@ -326,235 +340,247 @@
     </div>
   </div>
 
-  <!-- LIENZO PRINCIPAL -->
+  <!-- LIENZO PRINCIPAL DE ARQUITECTURA -->
   <div class="blueprint-canvas" id="blueprintCanvas">
 
-    <!-- CABECERA DE ARQUITECTURA -->
+    <!-- CABECERA -->
     <div class="bp-header">
       <div class="bp-title">
         <h1>
-          Arquitectura Integral del Sistema <span class="tag-cloud">SIIAC</span>
+          Arquitectura del Sistema <span class="tag-cloud">SIIAC</span>
         </h1>
-        <p>Integración de 5 Fuentes Silo • Capa Staging • Motor ETL Idempotente (SHA-256) • Google Cloud Platform</p>
+        <p>Integración de 5 Silos Heterogéneos • Motor ETL Idempotente (SHA-256) • Google Cloud Platform</p>
       </div>
       <div class="bp-meta">
-        <div class="status-live">🟢 PRODUCCIÓN EN GOOGLE CLOUD</div>
+        <div class="status-live">🟢 100% ACTIVO EN PRODUCCIÓN</div>
         <div style="color: #475569; margin-top: 2px;">siiac-gabrielcabana-7144a.web.app</div>
       </div>
     </div>
 
-    <!-- BLOQUE 1: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN SERVICIOS INVENTADOS) -->
-    <div class="section-box">
-      <div class="section-title">
-        <span>☁️ 1. Infraestructura Real Desplegada en Google Cloud Platform (ID: siiac-gabrielcabana-7144a | Región: us-central1)</span>
-        <span style="font-size: 11px; font-weight: 700; color: #059669;">Netamente lo utilizado en el proyecto</span>
+    <!-- SECCIÓN 1: MOTOR ETL Y PIPELINE DE INTEGRACIÓN MULTI-FUENTE (TODO EL FLUJO EN 5 FASES) -->
+    <div class="etl-master-box">
+      <div class="etl-master-header">
+        <div class="etl-master-title">
+          <span>⚙️ Motor ETL Transaccional y Pipeline de Integración de Datos (End-to-End)</span>
+        </div>
+        <span style="font-size: 11px; font-weight: 700; color: #0284c7; background: #e0f2fe; padding: 2px 8px; border-radius: 4px;">
+          Extracción ➔ Staging ➔ Cuarentena ➔ Deduplicación ➔ Repositorio Central 3NF
+        </span>
       </div>
 
-      <div class="gcp-cards-grid">
-        <div class="gcp-service-card">
-          <div class="service-icon icon-blue">🌐</div>
-          <div class="gcp-service-info">
-            <h5>Google Cloud / Firebase Hosting</h5>
-            <p>Distribución perimetral global Anycast, certificado SSL TLS 1.3 automático y latencia &lt; 35ms.</p>
-            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">siiac-gabrielcabana-7144a.web.app</span>
-          </div>
-        </div>
+      <div class="pipeline-flow-grid">
 
-        <div class="gcp-service-card">
-          <div class="service-icon icon-purple">🐳</div>
-          <div class="gcp-service-info">
-            <h5>Docker Multi-Stage (Cloud Run Ready)</h5>
-            <p>Contenedor OCI Nginx Alpine en <strong>Puerto 8080</strong> y pipeline automatizado con <code>cloudbuild.yaml</code>.</p>
-            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">Dockerfile • Puerto 8080</span>
-          </div>
-        </div>
+        <!-- FASE 1: FUENTES SILO HETEROGÉNEAS -->
+        <div class="stage-column">
+          <div class="stage-badge">🏢 1. Fuentes Heterogéneas</div>
 
-        <div class="gcp-service-card">
-          <div class="service-icon icon-amber">🪣</div>
-          <div class="gcp-service-info">
-            <h5>Google Cloud Storage (GCS Buckets)</h5>
-            <p>Landing zone para archivos pesados de inspectores y bancos, desacoplando la RAM del servidor web.</p>
-            <span class="service-pill" style="background: #fef3c7; color: #b45309;">gs://siiac-landing / quarantine</span>
-          </div>
-        </div>
-
-        <div class="gcp-service-card">
-          <div class="service-icon icon-green">🗄️</div>
-          <div class="gcp-service-info">
-            <h5>PostgreSQL Relacional (Cloud SQL Ready)</h5>
-            <p>Modelo 3NF transaccional ACID, tablas raw desacopladas y vistas CTE que anulan el producto cartesiano.</p>
-            <span class="service-pill" style="background: #dcfce7; color: #15803d;">citizens, tickets, payments (3NF)</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BLOQUE 2: PIPELINE ETL Y MOTOR DE INTEGRACIÓN MULTI-FUENTE (TODO VISIBLE) -->
-    <div class="section-box" style="background: #ffffff; border-color: #0284c7;">
-      <div class="section-title" style="color: #0284c7;">
-        <span>⚙️ 2. Motor ETL Transaccional y Flujo Lógico de Integración de Datos (End-to-End)</span>
-        <span style="font-size: 11px; font-weight: 700; color: #0284c7;">5 Fases de Transformación, Calidad y Deduplicación</span>
-      </div>
-
-      <div class="etl-pipeline-grid">
-
-        <!-- FASE 1: FUENTES HETEROGÉNEAS -->
-        <div class="pipeline-col">
-          <div class="col-header">🏢 1. Fuentes Silo</div>
-
-          <div class="item-card">
-            <div class="item-title">🚗 Área 1: Tránsito</div>
-            <div class="item-desc">Infracciones de transporte en PHP/MySQL.</div>
-            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">legacy_papeletas</span>
+          <div class="flow-card">
+            <div class="flow-card-title">🚗 Área 1: Tránsito</div>
+            <div class="flow-card-desc">Infracciones vehiculares en PHP/MySQL legado.</div>
+            <span class="flow-pill" style="background: #e0f2fe; color: #0369a1;">legacy_papeletas</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">🏢 Área 2: Fiscalización</div>
-            <div class="item-desc">Sanciones administrativas en Java/PostgreSQL.</div>
-            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">legacy_fiscalizacion (RSA)</span>
+          <div class="flow-card">
+            <div class="flow-card-title">🏢 Área 2: Fiscalización</div>
+            <div class="flow-card-desc">Sanciones administrativas en Java/PostgreSQL (RSA).</div>
+            <span class="flow-pill" style="background: #ede9fe; color: #6b21a8;">legacy_fiscalizacion</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">💳 Área 3: Recaudación</div>
-            <div class="item-desc">Recibos de caja ventanilla en C#/SQL Server.</div>
-            <span class="service-pill" style="background: #dcfce7; color: #15803d;">legacy_recaudacion</span>
+          <div class="flow-card">
+            <div class="flow-card-title">💳 Área 3: Recaudación</div>
+            <div class="flow-card-desc">Recibos de caja ventanilla en C#/SQL Server.</div>
+            <span class="flow-pill" style="background: #dcfce7; color: #15803d;">legacy_recaudacion</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">📄 Inspectores Campo</div>
-            <div class="item-desc">Infracciones físicas en calle no sincronizadas.</div>
-            <span class="service-pill" style="background: #fef3c7; color: #b45309;">papeletas_campo.xlsx</span>
+          <div class="flow-card">
+            <div class="flow-card-title">📄 Inspectores en Campo</div>
+            <div class="flow-card-desc">Actas físicas levantadas en vía pública.</div>
+            <span class="flow-pill" style="background: #fef3c7; color: #b45309;">papeletas_campo.xlsx</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">🏦 Bancos & Coactiva</div>
-            <div class="item-desc">Abonos BCP/BN y liquidaciones coactivas.</div>
-            <span class="service-pill" style="background: #fef3c7; color: #b45309;">bancos_externos.xlsx</span>
+          <div class="flow-card">
+            <div class="flow-card-title">🏦 Bancos & Coactiva</div>
+            <div class="flow-card-desc">Extractos BCP/BN y liquidaciones coactivas.</div>
+            <span class="flow-pill" style="background: #fef3c7; color: #b45309;">bancos_externos.xlsx</span>
           </div>
         </div>
 
         <!-- FASE 2: CAPA STAGING RAW -->
-        <div class="pipeline-col">
-          <div class="col-header">📥 2. Capa Staging</div>
+        <div class="stage-column">
+          <div class="stage-badge">📥 2. Capa Staging (Raw)</div>
 
-          <div class="item-card">
-            <div class="item-title">Aterrizaje Desacoplado</div>
-            <div class="item-desc">Ingesta a tablas temporales raw para no saturar memoria.</div>
-            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">infracciones_raw</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Aterrizaje Desacoplado</div>
+            <div class="flow-card-desc">Tablas intermedias temporales para no saturar memoria.</div>
+            <span class="flow-pill" style="background: #e0f2fe; color: #0369a1;">infracciones_raw</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Transacciones Externas</div>
-            <div class="item-desc">Abonos y cobranzas previas a conciliación.</div>
-            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">transacciones_raw</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Transacciones Externas</div>
+            <div class="flow-card-desc">Abonos bancarios y costas previas a conciliación.</div>
+            <span class="flow-pill" style="background: #ede9fe; color: #6b21a8;">transacciones_raw</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Inserción Masiva Socket</div>
-            <div class="item-desc">Comando <code>COPY FROM STDIN</code> (hasta 16,000 filas/seg).</div>
-            <span class="service-pill" style="background: #f0fdf4; color: #15803d;">Buffer Streaming</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Inserción Masiva Socket</div>
+            <div class="flow-card-desc">Comando nativo <code>COPY FROM STDIN</code> (hasta 16,000 filas/seg).</div>
+            <span class="flow-pill" style="background: #f0fdf4; color: #15803d;">Socket Buffer Streaming</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Aislamiento Seguro</div>
-            <div class="item-desc">No altera las tablas públicas de producción.</div>
-            <span class="service-pill" style="background: #f1f5f9; color: #475569;">Esquema staging.*</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Aislamiento Seguro</div>
+            <div class="flow-card-desc">No altera las tablas públicas de producción.</div>
+            <span class="flow-pill" style="background: #f1f5f9; color: #475569;">Esquema staging.*</span>
           </div>
         </div>
 
-        <!-- FASE 3: CALIDAD Y CUARENTENA -->
-        <div class="pipeline-col highlight-green">
-          <div class="col-header" style="color: #065f46;">🛡️ 3. Calidad & Cuarentena</div>
+        <!-- FASE 3: CUARENTENA Y REGLAS DE NEGOCIO -->
+        <div class="stage-column stage-quarantine">
+          <div class="stage-badge" style="color: #9f1239;">🛡️ 3. Cuarentena de Calidad</div>
 
-          <div class="item-card" style="border-color: #bbf7d0;">
-            <div class="item-title" style="color: #047857;">Reglas Tipificadas</div>
-            <div class="item-desc">
-              • Monto &gt; S/ 0 (No negativo)<br>
+          <div class="flow-card" style="border-color: #fecdd3;">
+            <div class="flow-card-title" style="color: #9f1239;">Reglas de Negocio</div>
+            <div class="flow-card-desc">
+              • Monto base &gt; 0 (No negativo)<br>
               • Formato de fecha válido<br>
               • Existencia de DNI/Ticket
             </div>
-            <span class="service-pill" style="background: #dcfce7; color: #15803d;">Validación Fila x Fila</span>
+            <span class="flow-pill" style="background: #ffe4e6; color: #9f1239;">Validación Fila a Fila</span>
           </div>
 
-          <div class="item-card" style="background: #fff1f2; border-color: #fecdd3;">
-            <div class="item-title" style="color: #9f1239;">Aislamiento (Reject)</div>
-            <div class="item-desc" style="color: #be123c;">
-              <strong>Cero ROLLBACK destructivo:</strong> Filas corruptas se aíslan sin abortar el lote válido.
+          <div class="flow-card" style="background: #ffffff; border-color: #f43f5e;">
+            <div class="flow-card-title" style="color: #e11d48;">Reject Bucket</div>
+            <div class="flow-card-desc" style="color: #881337;">
+              <strong>Cero ROLLBACK destructivo:</strong> Las filas corruptas no cancelan el lote. Se aíslan con su motivo.
             </div>
-            <span class="service-pill" style="background: #ffe4e6; color: #9f1239;">staging.import_errors</span>
+            <span class="flow-pill" style="background: #ffe4e6; color: #e11d48;">staging.import_errors</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Discrepancias</div>
-            <div class="item-desc">
-              <code>INVALID_AMOUNT</code>, <code>MISSING_TICKET</code>, <code>INVALID_DATE</code>.
+          <div class="flow-card">
+            <div class="flow-card-title">Códigos Tipificados</div>
+            <div class="flow-card-desc">
+              <code>INVALID_AMOUNT</code>, <code>MISSING_TICKET</code>, <code>INVALID_DATE</code>, <code>TICKET_NOT_FOUND</code>.
             </div>
-            <span class="service-pill" style="background: #fef3c7; color: #b45309;">Reporte CSV</span>
+            <span class="flow-pill" style="background: #fef3c7; color: #b45309;">Reporte CSV Descargable</span>
           </div>
         </div>
 
-        <!-- FASE 4: DEDUPLICACIÓN SHA-256 Y CORE 3NF -->
-        <div class="pipeline-col highlight-blue">
-          <div class="col-header" style="color: #1d4ed8;">🔐 4. Deduplicación & 3NF</div>
+        <!-- FASE 4: DEDUPLICACIÓN SHA-256 E IDEMPOTENCIA -->
+        <div class="stage-column stage-dedup">
+          <div class="stage-badge" style="color: #065f46;">🔐 4. Deduplicación & 3NF</div>
 
-          <div class="item-card" style="border-color: #bfdbfe;">
-            <div class="item-title" style="color: #1e40af;">Hash SHA-256 CDC</div>
-            <div class="item-desc">
+          <div class="flow-card" style="border-color: #bbf7d0;">
+            <div class="flow-card-title" style="color: #047857;">Hashing SHA-256 CDC</div>
+            <div class="flow-card-desc">
               Hash de contenido único. Reprocesar el lote produce exactamente <strong>0 duplicados</strong>.
             </div>
-            <span class="service-pill" style="background: #dbeafe; color: #1e40af;">Idempotencia Total</span>
+            <span class="flow-pill" style="background: #dcfce7; color: #15803d;">Idempotencia Estricta</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Padrón Unificado</div>
-            <div class="item-desc">Identidad del infractor por DNI / RUC.</div>
-            <span class="service-pill" style="background: #dcfce7; color: #15803d;">public.citizens</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Padrón Unificado</div>
+            <div class="flow-card-desc">Ciudadanos identificados unívocamente por DNI o RUC.</div>
+            <span class="flow-pill" style="background: #dcfce7; color: #15803d;">public.citizens</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Sanciones Consolidadas</div>
-            <div class="item-desc">Infracciones Tránsito y Fiscalización.</div>
-            <span class="service-pill" style="background: #e0f2fe; color: #0369a1;">public.tickets</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Sanciones Consolidadas</div>
+            <div class="flow-card-desc">Infracciones de Tránsito y Fiscalización (RSA).</div>
+            <span class="flow-pill" style="background: #e0f2fe; color: #0369a1;">public.tickets</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Pagos e Intereses</div>
-            <div class="item-desc">Caja ventanilla + Bancos + Mora coactiva.</div>
-            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">public.payments / interest</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Pagos e Intereses</div>
+            <div class="flow-card-desc">Caja ventanilla + Bancos + Mora coactiva.</div>
+            <span class="flow-pill" style="background: #ede9fe; color: #6b21a8;">public.payments / interest</span>
           </div>
         </div>
 
         <!-- FASE 5: VISTA SQL CTE Y CONSUMO -->
-        <div class="pipeline-col">
-          <div class="col-header">🌐 5. Vista CTE & Consumo</div>
+        <div class="stage-column stage-core">
+          <div class="stage-badge" style="color: #1d4ed8;">🌐 5. Vista CTE & Consumo</div>
 
-          <div class="item-card" style="background: #eff6ff; border-color: #3b82f6;">
-            <div class="item-title" style="color: #1d4ed8;">Anti-Producto Cartesiano</div>
-            <div class="item-desc">
+          <div class="flow-card" style="border-color: #bfdbfe; background: #ffffff;">
+            <div class="flow-card-title" style="color: #1e40af;">Anti-Producto Cartesiano</div>
+            <div class="flow-card-desc">
               Agrupación separada en CTEs de pagos e intereses antes del cruce con la infracción.
             </div>
-            <span class="service-pill" style="background: #dbeafe; color: #1e40af;">consolidated_tickets_view</span>
+            <span class="flow-pill" style="background: #dbeafe; color: #1e40af;">consolidated_tickets_view</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Atención al Ciudadano</div>
-            <div class="item-desc">Búsqueda directa por DNI con auto-enlace.</div>
-            <span class="service-pill" style="background: #dcfce7; color: #15803d;">/consulta?q=DNI</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Atención al Ciudadano</div>
+            <div class="flow-card-desc">Búsqueda directa por DNI con auto-enlace desde el Excel.</div>
+            <span class="flow-pill" style="background: #dcfce7; color: #15803d;">/consulta?q=DNI</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Mesa de Partes en Vivo</div>
-            <div class="item-desc">Digitación de Tránsito, RSA y cobro caja.</div>
-            <span class="service-pill" style="background: #ede9fe; color: #6b21a8;">/operaciones</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Mesa de Partes en Vivo</div>
+            <div class="flow-card-desc">Digitación de Tránsito, RSA y cobro en Ventanilla.</div>
+            <span class="flow-pill" style="background: #ede9fe; color: #6b21a8;">/operaciones</span>
           </div>
 
-          <div class="item-card">
-            <div class="item-title">Benchmark 500K Filas</div>
-            <div class="item-desc">Streams chunks 5K / RAM &lt; 60 MB.</div>
-            <span class="service-pill" style="background: #fef3c7; color: #b45309;">&gt;16,000 filas/seg</span>
+          <div class="flow-card">
+            <div class="flow-card-title">Benchmark 500K Filas</div>
+            <div class="flow-card-desc">Streams chunks 5K con memoria RAM &lt; 60 MB.</div>
+            <span class="flow-pill" style="background: #fef3c7; color: #b45309;">&gt;16,000 filas/seg</span>
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: INFRAESTRUCTURA REAL EN GOOGLE CLOUD (SIN ADORNOS NI SERVICIOS INVENTADOS) -->
+    <div class="gcp-infra-box">
+      <div class="gcp-infra-header">
+        <span>☁️ Infraestructura Real de Soporte en Google Cloud Platform (ID: siiac-gabrielcabana-7144a | Región: us-central1)</span>
+        <span style="font-size: 11px; font-weight: 700; color: #1a73e8;">Servicios Cloud Oficialmente Configurados</span>
+      </div>
+
+      <div class="gcp-services-row">
+        <div class="service-box">
+          <div class="service-icon-box" style="background: #e0f2fe; color: #0284c7;">🌐</div>
+          <div>
+            <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Firebase Hosting (GCP Edge)</h5>
+            <p style="font-size: 10px; color: #64748b; margin-top: 2px;">
+              Alojamiento perimetral con certificado SSL TLS 1.3 automático y latencia &lt; 35ms.
+            </p>
+            <span class="flow-pill" style="background: #e0f2fe; color: #0369a1;">siiac-gabrielcabana-7144a.web.app</span>
+          </div>
+        </div>
+
+        <div class="service-box">
+          <div class="service-icon-box" style="background: #ede9fe; color: #7c3aed;">🐳</div>
+          <div>
+            <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Docker Multi-Stage (Cloud Run Ready)</h5>
+            <p style="font-size: 10px; color: #64748b; margin-top: 2px;">
+              Contenedor OCI Nginx Alpine en <strong>Puerto 8080</strong> y pipeline automatizado con <code>cloudbuild.yaml</code>.
+            </p>
+            <span class="flow-pill" style="background: #ede9fe; color: #6b21a8;">Dockerfile • Puerto 8080</span>
+          </div>
+        </div>
+
+        <div class="service-box">
+          <div class="service-icon-box" style="background: #fef3c7; color: #d97706;">🪣</div>
+          <div>
+            <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">Cloud Storage (GCS Buckets)</h5>
+            <p style="font-size: 10px; color: #64748b; margin-top: 2px;">
+              Landing zone para archivos pesados de inspectores y bancos, desacoplando la memoria RAM web.
+            </p>
+            <span class="flow-pill" style="background: #fef3c7; color: #b45309;">gs://siiac-landing / quarantine</span>
+          </div>
+        </div>
+
+        <div class="service-box">
+          <div class="service-icon-box" style="background: #dcfce7; color: #16a34a;">🗄️</div>
+          <div>
+            <h5 style="font-size: 11.5px; font-weight: 800; color: #0f172a;">PostgreSQL Relacional (Cloud SQL Ready)</h5>
+            <p style="font-size: 10px; color: #64748b; margin-top: 2px;">
+              Modelo 3NF transaccional ACID, tablas raw desacopladas y vistas CTE sin producto cartesiano.
+            </p>
+            <span class="flow-pill" style="background: #dcfce7; color: #15803d;">citizens, tickets, payments (3NF)</span>
+          </div>
+        </div>
       </div>
     </div>
 
